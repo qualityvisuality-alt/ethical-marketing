@@ -109,6 +109,52 @@ export const ELEMENTS = {
   ],
 };
 
+// ---------------- METHOD (center brand core) ----------------
+export const METHOD = {
+  ua: {
+    id: "brand", order: "★", name: "ВАШ БРЕНД", sound: "brand",
+    color: "#f6e7b0", essence: "як жива структура для живих людей",
+    obraz: "квітка життя, цілісність, правда", image: IMG.cosmos,
+    kicker: "МЕТОД · ЖИВА СТРУКТУРА",
+    points: [
+      "Вода — сенс, коріння і чесність із собою",
+      "Дерево — напрям росту туди, де світло",
+      "Вогонь — ясність, енергія і фокус дії",
+      "Земля — живлення, спільнота і довіра",
+      "Метал — структура, система і майстерність",
+    ],
+    valueTitle: "Чому це працює разом",
+    value: "П'ять стихій — це не етапи заради етапів, а живий цикл, у якому кожен елемент живить наступний: вода дає сенс, дерево — напрям, вогонь — дію, земля — стосунки, метал — систему. Разом вони утворюють цілісний організм бренду, а не набір розрізнених тактик. Цей метод працює у поєднанні з твоїм дизайном людини (Human Design): ми будуємо стратегію так, щоб вона відповідала твоїй природі, енергії та ролям — тоді дія стає легкою й ефективною. І головне: автентичність має сенс лише тоді, коли є щирість і правда — у першу чергу із самим собою. Бренд не можна зіграти. Коли ти чесний із собою, твоя цінність стає видимою, і люди відчувають її без слів.",
+    deliver: [
+      "Цілісний бренд, а не набір розрізнених тактик",
+      "Стратегія у гармонії з твоїм Human Design",
+      "Автентичність, що базується на правді із собою",
+      "Живий організм, що росте разом з тобою",
+    ],
+  },
+  en: {
+    id: "brand", order: "★", name: "YOUR BRAND", sound: "brand",
+    color: "#f6e7b0", essence: "a living structure for living people",
+    obraz: "flower of life, wholeness, truth", image: IMG.cosmos,
+    kicker: "THE METHOD · LIVING STRUCTURE",
+    points: [
+      "Water — meaning, roots and honesty with yourself",
+      "Wood — the direction of growth toward the light",
+      "Fire — clarity, energy and focus of action",
+      "Earth — nourishment, community and trust",
+      "Metal — structure, system and mastery",
+    ],
+    valueTitle: "Why it works together",
+    value: "The five elements are not stages for the sake of stages, but a living cycle where each element feeds the next: water gives meaning, wood gives direction, fire gives action, earth gives relationships, metal gives the system. Together they form a whole brand organism, not a set of scattered tactics. This method works in combination with your Human Design: we build the strategy to match your nature, energy and roles — then action becomes light and effective. And most importantly: authenticity only makes sense when there is sincerity and truth — first of all with yourself. A brand cannot be faked. When you are honest with yourself, your value becomes visible, and people feel it without words.",
+    deliver: [
+      "A whole brand, not scattered tactics",
+      "Strategy in harmony with your Human Design",
+      "Authenticity based on truth with yourself",
+      "A living organism that grows with you",
+    ],
+  },
+};
+
 // ---------------- STAGES ----------------
 export const STAGES = {
   ua: [
@@ -143,6 +189,7 @@ export const ABOUT = {
     { icon: "Sparkles", text: "Зараз поглиблююсь у психологію, Human Design, NLP, філософію. Навчався медитації і продовжую навчатись далі." },
     { icon: "PersonStanding", text: "Я сучасний йог, який допомагає у сфері маркетингу." },
     { icon: "Headphones", text: "Нещодавно працював у customer support в астрологічному додатку Nebula." },
+    { icon: "Award", text: "Навчався на комплексному курсі з маркетингу в School PARA." },
   ],
   en: [
     { icon: "GraduationCap", text: "I'm preparing to launch into orbit in marketing. And I see my growth in this vector for the years ahead." },
@@ -152,6 +199,7 @@ export const ABOUT = {
     { icon: "Sparkles", text: "Now I'm deepening into psychology, Human Design, NLP, philosophy. I studied meditation and keep learning further." },
     { icon: "PersonStanding", text: "I'm a modern yogi who helps in the field of marketing." },
     { icon: "Headphones", text: "Recently I worked in customer support at the Nebula astrology app." },
+    { icon: "Award", text: "Studied on a complex marketing course at School PARA." },
   ],
 };
 

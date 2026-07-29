@@ -1,8 +1,8 @@
 import React from "react";
-import { GraduationCap, Briefcase, Brain, Film, Sparkles, PersonStanding, Headphones, Check, Compass, Users, Send, Mail } from "lucide-react";
+import { GraduationCap, Briefcase, Brain, Film, Sparkles, PersonStanding, Headphones, Award, Check, Compass, Users, Send, Mail } from "lucide-react";
 import portrait from "../assets/portrait.png";
 
-const ICO = { GraduationCap, Briefcase, Brain, Film, Sparkles, PersonStanding, Headphones };
+const ICO = { GraduationCap, Briefcase, Brain, Film, Sparkles, PersonStanding, Headphones, Award };
 
 export default function AboutHelp({ about, help, ui, email }) {
   return (

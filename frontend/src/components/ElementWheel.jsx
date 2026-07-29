@@ -1,16 +1,47 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { RotateCw } from "lucide-react";
+import Planet from "./Planet";
 
-// Rotating, draggable, clickable wheel of 5 elements around the brand core.
-export default function ElementWheel({ elements, ui, onSelect }) {
+// Flower of Life circle centers (Metatron seed -> 19 circles)
+function flowerCenters(cx, cy, r) {
+  const pts = [{ x: cx, y: cy }];
+  const deg = (d) => (d * Math.PI) / 180;
+  for (let i = 0; i < 6; i++) pts.push({ x: cx + r * Math.cos(deg(i * 60)), y: cy + r * Math.sin(deg(i * 60)) });
+  for (let i = 0; i < 6; i++) pts.push({ x: cx + r * Math.sqrt(3) * Math.cos(deg(30 + i * 60)), y: cy + r * Math.sqrt(3) * Math.sin(deg(30 + i * 60)) });
+  for (let i = 0; i < 6; i++) pts.push({ x: cx + 2 * r * Math.cos(deg(i * 60)), y: cy + 2 * r * Math.sin(deg(i * 60)) });
+  return pts;
+}
+
+function Mandala() {
+  const V = 260, C = 130, r = 21;
+  const centers = flowerCenters(C, C, r);
+  const rays = Array.from({ length: 24 });
+  return (
+    <svg className="mandala" width={V} height={V} viewBox={`0 0 ${V} ${V}`}>
+      <g style={{ transformOrigin: "center", animation: "mandalaSpinRev 120s linear infinite" }}>
+        {rays.map((_, i) => {
+          const a = (i / 24) * Math.PI * 2;
+          return <line key={i} x1={C} y1={C} x2={C + 126 * Math.cos(a)} y2={C + 126 * Math.sin(a)} stroke="rgba(230,198,122,0.12)" strokeWidth="0.6" />;
+        })}
+        <circle cx={C} cy={C} r={126} fill="none" stroke="rgba(230,198,122,0.25)" strokeWidth="0.8" />
+      </g>
+      <g style={{ transformOrigin: "center", animation: "mandalaSpin 90s linear infinite" }}>
+        {centers.map((p, i) => (
+          <circle key={i} cx={p.x} cy={p.y} r={r} fill="none" stroke="rgba(246,231,176,0.4)" strokeWidth="0.8" />
+        ))}
+        <circle cx={C} cy={C} r={r * 3} fill="none" stroke="rgba(246,231,176,0.35)" strokeWidth="0.8" />
+      </g>
+    </svg>
+  );
+}
+
+export default function ElementWheel({ elements, method, ui, onSelect }) {
   const [angle, setAngle] = useState(0);
   const [auto, setAuto] = useState(true);
-  const [active, setActive] = useState(null);
   const drag = useRef({ on: false, startAngle: 0, startPointer: 0 });
   const wrapRef = useRef(null);
   const rafRef = useRef(0);
 
-  // auto rotation
   useEffect(() => {
     let last = performance.now();
     const tick = (now) => {
@@ -23,26 +54,15 @@ export default function ElementWheel({ elements, ui, onSelect }) {
   }, [auto]);
 
   const pointerAngle = (e) => {
-    const r = wrapRef.current.getBoundingClientRect();
-    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const rc = wrapRef.current.getBoundingClientRect();
+    const cx = rc.left + rc.width / 2, cy = rc.top + rc.height / 2;
     const x = (e.touches ? e.touches[0].clientX : e.clientX) - cx;
     const y = (e.touches ? e.touches[0].clientY : e.clientY) - cy;
     return (Math.atan2(y, x) * 180) / Math.PI;
   };
-
-  const onDown = (e) => {
-    setAuto(false);
-    drag.current = { on: true, startAngle: angle, startPointer: pointerAngle(e) };
-  };
-  const onMove = useCallback((e) => {
-    if (!drag.current.on) return;
-    const cur = pointerAngle(e);
-    setAngle(drag.current.startAngle + (cur - drag.current.startPointer));
-  }, []);
-  const onUp = useCallback(() => {
-    drag.current.on = false;
-    setTimeout(() => setAuto(true), 2500);
-  }, []);
+  const onDown = (e) => { setAuto(false); drag.current = { on: true, startAngle: angle, startPointer: pointerAngle(e) }; };
+  const onMove = useCallback((e) => { if (!drag.current.on) return; setAngle(drag.current.startAngle + (pointerAngle(e) - drag.current.startPointer)); }, []);
+  const onUp = useCallback(() => { drag.current.on = false; setTimeout(() => setAuto(true), 2500); }, []);
 
   useEffect(() => {
     window.addEventListener("mousemove", onMove);
@@ -64,64 +84,65 @@ export default function ElementWheel({ elements, ui, onSelect }) {
     <div className="relative mx-auto" style={{ width: 560, maxWidth: "92vw" }}>
       <div className="relative" style={{ paddingBottom: "100%" }}>
         <div ref={wrapRef} className="absolute inset-0 wheel-grab select-none" onMouseDown={onDown} onTouchStart={onDown}>
-          {/* sacred geometry rings */}
-          <svg className="absolute inset-0 w-full h-full geo-spin" viewBox="0 0 560 560" style={{ opacity: 0.5 }}>
-            <circle cx="280" cy="280" r="250" fill="none" stroke="rgba(230,198,122,0.28)" strokeWidth="1" />
-            <circle cx="280" cy="280" r="150" fill="none" stroke="rgba(230,198,122,0.18)" strokeWidth="1" />
+          {/* outer sacred geometry */}
+          <svg className="absolute inset-0 w-full h-full geo-spin" viewBox="0 0 560 560" style={{ opacity: 0.4 }}>
+            <circle cx="280" cy="280" r="250" fill="none" stroke="rgba(230,198,122,0.25)" strokeWidth="1" />
             {Array.from({ length: 12 }).map((_, i) => {
               const a = (i / 12) * Math.PI * 2;
-              return <line key={i} x1={280} y1={280} x2={280 + 250 * Math.cos(a)} y2={280 + 250 * Math.sin(a)} stroke="rgba(230,198,122,0.1)" strokeWidth="0.6" />;
+              return <line key={i} x1={280} y1={280} x2={280 + 250 * Math.cos(a)} y2={280 + 250 * Math.sin(a)} stroke="rgba(230,198,122,0.09)" strokeWidth="0.6" />;
             })}
           </svg>
-          <svg className="absolute inset-0 w-full h-full geo-spin-rev" viewBox="0 0 560 560" style={{ opacity: 0.35 }}>
-            <polygon points="280,60 470,200 400,430 160,430 90,200" fill="none" stroke="rgba(230,198,122,0.35)" strokeWidth="1" />
-            <polygon points="280,120 420,240 365,410 195,410 140,240" fill="none" stroke="rgba(230,198,122,0.15)" strokeWidth="0.8" />
-          </svg>
 
-          {/* rotating orbs layer */}
+          {/* rotating planets */}
           <div className="absolute inset-0" style={{ transform: `rotate(${angle}deg)`, transition: drag.current.on ? "none" : "transform 0.05s linear" }}>
             {elements.map((el, i) => {
               const a = (i / N) * Math.PI * 2 - Math.PI / 2;
               const cx = 50 + (radius / 5.6) * Math.cos(a);
               const cy = 50 + (radius / 5.6) * Math.sin(a);
               return (
-                <button
-                  key={el.id}
-                  onMouseEnter={() => setActive(el.id)}
-                  onMouseLeave={() => setActive(null)}
-                  onClick={(e) => { e.stopPropagation(); onSelect(el); }}
-                  className="orb absolute"
-                  style={{
-                    left: `${cx}%`, top: `${cy}%`, width: 118, height: 118,
-                    transform: `translate(-50%,-50%) rotate(${-angle}deg)`,
-                    border: `2px solid ${el.color}`,
-                    boxShadow: `0 0 26px ${el.color}55, 0 0 60px ${el.color}22`,
-                  }}
-                >
-                  <img src={el.image} alt={el.name} className="w-full h-full object-cover" draggable={false} />
-                  <span className="absolute inset-0 flex items-end justify-center pb-2">
-                    <span className="font-label text-[13px] tracking-widest px-2 py-0.5 rounded" style={{ background: "rgba(5,7,15,0.6)", color: el.color }}>
-                      {el.order}. {el.name}
+                <div key={el.id} className="absolute" style={{ left: `${cx}%`, top: `${cy}%`, transform: `translate(-50%,-50%) rotate(${-angle}deg)` }}>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onSelect(el); }}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    className="relative block group"
+                    style={{ background: "none", border: "none", cursor: "pointer" }}
+                  >
+                    <div className="transition-transform duration-300 group-hover:scale-110">
+                      <Planet type={el.id} size={118} />
+                    </div>
+                    <span className="absolute left-1/2 -translate-x-1/2 -bottom-6 whitespace-nowrap">
+                      <span className="font-label text-[12px] tracking-widest px-2 py-0.5 rounded" style={{ background: "rgba(5,7,15,0.7)", color: el.color }}>
+                        {el.order}. {el.name}
+                      </span>
                     </span>
-                  </span>
-                </button>
+                  </button>
+                </div>
               );
             })}
           </div>
 
-          {/* center brand core */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none" style={{ width: 200 }}>
-            <div className="anim-pulse-glow absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ width: 160, height: 160, background: "radial-gradient(circle, rgba(230,198,122,0.28), transparent 70%)" }} />
-            <div className="relative">
-              <div className="font-display gold-gradient-text" style={{ fontSize: 30, lineHeight: 1, fontWeight: 800 }}>{ui.brand}</div>
-              <div className="gold-rule my-2 mx-auto" style={{ width: 90 }} />
-              <div className="font-label text-dim" style={{ fontSize: 10, letterSpacing: "0.15em" }}>{ui.brandSub}</div>
+          {/* center brand star (clickable) */}
+          <button
+            className="brand-core group"
+            onClick={(e) => { e.stopPropagation(); onSelect(method); }}
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            <Mandala />
+            <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+              style={{ width: 152, height: 152, borderRadius: "50%",
+                background: "radial-gradient(circle at 42% 38%, #ffffff, #fdf6e3 45%, #f4e2b0 72%, #e6c67a 100%)",
+                boxShadow: "0 0 40px rgba(246,231,176,0.7), 0 0 90px rgba(246,231,176,0.35), inset -6px -8px 24px rgba(180,146,63,0.35)",
+                animation: "starPulse 5s ease-in-out infinite" }}>
+              <div className="text-center px-3">
+                <div className="font-display" style={{ fontSize: 24, fontWeight: 800, color: "#1c1405", lineHeight: 1 }}>{ui.brand}</div>
+                <div style={{ height: 1, background: "rgba(28,20,5,0.35)", margin: "5px auto", width: 70 }} />
+                <div className="font-label" style={{ fontSize: 8.5, letterSpacing: "0.12em", color: "#5a4a20" }}>{ui.brandSub}</div>
+              </div>
             </div>
-          </div>
+          </button>
         </div>
       </div>
 
-      {/* controls / hint */}
       <div className="flex items-center justify-center gap-3 mt-4">
         <button onClick={() => { setAuto(false); setAngle((a) => a + 72); setTimeout(() => setAuto(true), 2500); }} className="btn-ghost px-3 py-2 flex items-center gap-2 text-sm font-label">
           <RotateCw size={15} /> {ui.wheelHint}

@@ -46,7 +46,7 @@ export default function ElementModal({ element, ui, onClose }) {
             </button>
           </div>
           <div className="absolute bottom-4 left-5 md:left-7">
-            <div className="font-label text-dim tracking-widest text-xs mb-1">{element.order} · {ui.brand}</div>
+            <div className="font-label text-dim tracking-widest text-xs mb-1">{element.kicker || `${element.order} · ${ui.brand}`}</div>
             <h3 className="font-display" style={{ fontSize: 42, fontWeight: 800, color: element.color, lineHeight: 1 }}>{element.name}</h3>
             <div className="font-body text-sm mt-1" style={{ color: "#d8d4c6" }}>{element.essence}</div>
           </div>

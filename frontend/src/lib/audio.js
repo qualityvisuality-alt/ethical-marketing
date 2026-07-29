@@ -143,28 +143,52 @@ export class AmbientAudio {
   }
 
   _metal(out) {
-    const bell = () => {
+    // Handpan (hang) tuned around 1111 Hz fundamental
+    const strike = () => {
       if (this.current !== 'metal') return;
       const t = this.ctx.currentTime;
-      const partials = [1, 2.76, 5.4];
-      const base = [523, 659, 784, 880][Math.floor(Math.random()*4)];
+      const bases = [1111, 1111 * 0.75, 1111 * 1.5, 1111 * 0.5];
+      const base = bases[Math.floor(Math.random() * bases.length)];
+      const partials = [1, 2, 3.01];
       partials.forEach((p, idx) => {
         const o = this.ctx.createOscillator(); const g = this.ctx.createGain();
         o.type = 'sine'; o.frequency.value = base * p;
-        const peak = 0.14 / (idx + 1);
+        const peak = 0.16 / (idx + 1);
         g.gain.setValueAtTime(0.0001, t);
-        g.gain.exponentialRampToValueAtTime(peak, t + 0.02);
-        g.gain.exponentialRampToValueAtTime(0.0001, t + 2.4);
-        o.connect(g); g.connect(out); o.start(t); o.stop(t + 2.5);
+        g.gain.exponentialRampToValueAtTime(peak, t + 0.008);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 3.0);
+        o.connect(g); g.connect(out); o.start(t); o.stop(t + 3.1);
       });
     };
-    // soft airy pad
-    const s = this._src('pink');
-    const hp = this.ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value = 1800;
-    const g = this.ctx.createGain(); g.gain.value = 0.12;
-    s.connect(hp); hp.connect(g); g.connect(out);
-    bell();
-    this.timers.push(setInterval(bell, 2200));
+    // low warm sustain (fundamental / 4)
+    const o = this.ctx.createOscillator(); const g = this.ctx.createGain();
+    o.type = 'sine'; o.frequency.value = 1111 / 4; g.gain.value = 0.05;
+    o.connect(g); g.connect(out); o.start(); this._reg(o); this._reg(g);
+    strike();
+    this.timers.push(setInterval(strike, 2600));
+  }
+
+  _cosmos(out) {
+    const freqs = [130.81, 196.0, 261.63];
+    freqs.forEach((f, i) => {
+      const o = this.ctx.createOscillator(); const g = this.ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f; g.gain.value = 0.12 / (i + 1);
+      const det = this.ctx.createOscillator(); const dg = this.ctx.createGain();
+      det.type = 'sine'; det.frequency.value = f * 1.006; dg.gain.value = 0.06 / (i + 1);
+      o.connect(g); g.connect(out); det.connect(dg); dg.connect(out);
+      o.start(); det.start(); this._reg(o); this._reg(g); this._reg(det); this._reg(dg);
+    });
+    const shimmer = () => {
+      if (this.current !== 'brand') return;
+      const t = this.ctx.currentTime;
+      const o = this.ctx.createOscillator(); const g = this.ctx.createGain();
+      o.type = 'sine'; o.frequency.value = 1046 + Math.random() * 500;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.06, t + 0.4);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 3);
+      o.connect(g); g.connect(out); o.start(t); o.stop(t + 3.1);
+    };
+    this.timers.push(setInterval(shimmer, 3400));
   }
 
   play(element) {
@@ -173,10 +197,10 @@ export class AmbientAudio {
     this.stop(true);
     this.current = element;
     const bus = this.ctx.createGain(); bus.gain.value = 1; bus.connect(this.master); this._reg(bus);
-    const map = { water: '_water', fire: '_fire', wood: '_forest', earth: '_earth', metal: '_metal' };
+    const map = { water: '_water', fire: '_fire', wood: '_forest', earth: '_earth', metal: '_metal', brand: '_cosmos' };
     const fn = map[element];
     if (fn) this[fn](bus);
-    const target = element === 'earth' ? 0.5 : 0.32;
+    const target = element === 'earth' ? 0.5 : element === 'brand' ? 0.3 : 0.32;
     this.master.gain.cancelScheduledValues(this.ctx.currentTime);
     this.master.gain.setValueAtTime(Math.max(0.0001, this.master.gain.value), this.ctx.currentTime);
     this.master.gain.linearRampToValueAtTime(target, this.ctx.currentTime + 0.6);

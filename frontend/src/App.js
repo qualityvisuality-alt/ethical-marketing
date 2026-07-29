@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { Globe2, ChevronDown } from "lucide-react";
-import { ELEMENTS, STAGES, TOOLS, ABOUT, HELP, UI, CONTACT_EMAIL } from "./mock";
+import { ELEMENTS, STAGES, TOOLS, ABOUT, HELP, UI, CONTACT_EMAIL, METHOD } from "./mock";
 import ElementWheel from "./components/ElementWheel";
 import ElementModal from "./components/ElementModal";
 import Stages from "./components/Stages";
@@ -96,7 +96,7 @@ function App() {
           </div>
 
           <div className="reveal">
-            <ElementWheel elements={ELEMENTS[lang]} ui={ui} onSelect={setSelected} />
+            <ElementWheel elements={ELEMENTS[lang]} method={METHOD[lang]} ui={ui} onSelect={setSelected} />
           </div>
 
           <div className="flex justify-center mt-6 reveal">

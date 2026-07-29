@@ -7,6 +7,7 @@ const CONFIG = {
   fire:  { colors: ["#ffd27a", "#f0803c", "#ff5a2c"], bg: ["#2a1005", "#120602"], count: 70, mode: "embers" },
   earth: { colors: ["#e6c07a", "#d9a24a", "#c98b3a"], bg: ["#221808", "#0f0a03"], count: 34, mode: "rings" },
   metal: { colors: ["#dfe6f2", "#aeb9cc", "#ffffff"], bg: ["#141a28", "#070a12"], count: 60, mode: "shimmer" },
+  brand: { colors: ["#f6e7b0", "#ffffff", "#e6c67a"], bg: ["#12142a", "#05060f"], count: 80, mode: "shimmer" },
 };
 
 export default function ElementCanvas({ element }) {
