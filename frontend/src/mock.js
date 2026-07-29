@@ -1,0 +1,228 @@
+// Mock data (frontend-only). Bilingual UA/EN. Replace with backend later.
+
+export const CONTACT_EMAIL = "qualityvisuality@gmail.com";
+
+export const IMG = {
+  water: "https://images.unsplash.com/photo-1675787995181-65b258d592ec?w=900&q=80&auto=format&fit=crop",
+  wood: "https://images.unsplash.com/photo-1621840090029-08b00c831808?w=900&q=80&auto=format&fit=crop",
+  fire: "https://images.unsplash.com/photo-1504470695779-75300268aa0e?w=900&q=80&auto=format&fit=crop",
+  earth: "https://images.unsplash.com/photo-1526916027372-0c0852cef5d3?w=900&q=80&auto=format&fit=crop",
+  metal: "https://images.unsplash.com/photo-1679395283817-39f56e249ea6?w=900&q=80&auto=format&fit=crop",
+  cosmos: "https://images.unsplash.com/photo-1526565278154-ab23e27d998e?w=1400&q=80&auto=format&fit=crop",
+};
+
+// ---------------- ELEMENTS (interactive wheel) ----------------
+export const ELEMENTS = {
+  ua: [
+    {
+      id: "water", order: 1, name: "ВОДА", sound: "water",
+      color: "#5aa9e6", essence: "Глибина, тиша, коріння, занурення",
+      obraz: "глибина, тиша, коріння", image: IMG.water,
+      points: ["Ідентичність бренду", "Цінності, місія", "Сенс продукту", "Історія та автентичність", "Внутрішнє бачення"],
+      valueTitle: "Що ти отримуєш",
+      value: "На першій зустрічі за чашкою китайського чаю ми занурюємось у тебе. Ти дізнаєшся, хто ти у всьому цьому, свій Human Design та ролі, які найкраще реалізуєш у своєму бренді й продукті. Побачиш, як саме твій продукт впливає на людей, знайдеш свою «Північну зірку» і почнеш бачити, як рухатись з найвищим ККД — так, щоб було найкраще саме для тебе.",
+      deliver: ["Розбір Human Design та ролей", "Карта цінностей і місії", "Tone of voice і суть продукту", "Ясність «хто ти, куди йдеш»"],
+    },
+    {
+      id: "wood", order: 2, name: "ДЕРЕВО", sound: "wood",
+      color: "#7bc47f", essence: "Ріст туди, де є світло",
+      obraz: "ріст туди, де є світло", image: IMG.wood,
+      points: ["Аналіз аудиторії", "Дослідження ринку", "Конкуренти", "Позиціонування", "Можливості росту"],
+      valueTitle: "Що ти отримуєш",
+      value: "Ти отримуєш файли з докладними звітами: заміри та аналітика ринку, ніші, конкурентів і аудиторії з усіх джерел. Ми бачимо, де світло — і ростемо саме туди.",
+      deliver: ["Звіт по ринку і ніші", "Метрики: CPM, CTR, CAC, LTV, охоплення, залученість", "Карта конкурентів", "Чітке позиціонування та точки росту"],
+    },
+    {
+      id: "fire", order: 3, name: "ВОГОНЬ", sound: "fire",
+      color: "#f0803c", essence: "Ясність, енергія, фокус",
+      obraz: "ясність, енергія, фокус", image: IMG.fire,
+      points: ["Стратегія просування", "Цілі та KPI", "Контент-напрямки", "План дій", "Комунікаційна карта", "Семантичне ядро", "Чек-поінти і вектор розвитку"],
+      valueTitle: "Що ти отримуєш",
+      value: "Робоча стратегія на роки: цілі, KPI, семантичне ядро, контент-напрямки та комунікаційна карта. Ясність, енергія і фокус — ти точно знаєш, куди йдеш і за якими чек-поінтами звіряєшся.",
+      deliver: ["Маркетинг-стратегія на 1–3 роки", "KPI та воронки", "Семантичне ядро та контент-план", "Чек-поінти і вектор розвитку"],
+    },
+    {
+      id: "earth", order: 4, name: "ЗЕМЛЯ", sound: "earth",
+      color: "#d9a24a", essence: "Живлення, прийняття, спільнота",
+      obraz: "живлення, прийняття, спільнота", image: IMG.earth,
+      points: ["Семанта-контент", "Ком'юніті та діалог", "Історія бренду", "Довіра та взаємодія", "Клієнтський досвід", "Тривалість, lifetime value"],
+      valueTitle: "Що ти отримуєш",
+      value: "Будуємо живий бренд у діджитал-просторі: соцмережі, лендинг, продуктові карти й сценарії контенту під стратегію. Спільнота, довіра та діалог, що дають тривалі стосунки та lifetime value.",
+      deliver: ["Архітектура соцмереж і сайт/лендинг", "Продуктові карти і сценарії контенту", "Комʼюніті та живий діалог", "Довгі стосунки і lifetime value"],
+    },
+    {
+      id: "metal", order: 5, name: "МЕТАЛ", sound: "metal",
+      color: "#aeb9cc", essence: "Структура, точність, майстерність",
+      obraz: "структура, точність, майстерність", image: IMG.metal,
+      points: ["Система", "Автоматизація", "Аналітика та дані", "Автоматизація процесів", "Етичний AI", "Масштабування"],
+      valueTitle: "Що ти отримуєш",
+      value: "Етично автоматизуємо процеси за допомогою штучного інтелекту — система, точність і майстерність. Аналітика, дані та масштабування, що покращують якість життя та ефективність бізнесу.",
+      deliver: ["Система і автоматизація процесів", "Аналітика та дашборди даних", "Етичний AI у роботі", "Готовність до масштабування"],
+    },
+  ],
+  en: [
+    {
+      id: "water", order: 1, name: "WATER", sound: "water",
+      color: "#5aa9e6", essence: "Depth, silence, roots, immersion",
+      obraz: "depth, silence, roots", image: IMG.water,
+      points: ["Brand identity", "Values, mission", "Product meaning", "Story & authenticity", "Inner vision"],
+      valueTitle: "What you get",
+      value: "At our first session over a cup of Chinese tea we dive into you. You discover who you are within all of this, your Human Design and the roles you realize best in your brand and product. You see how your product truly affects people, find your North Star, and start to move with the highest efficiency — the way that is best for you.",
+      deliver: ["Human Design & roles breakdown", "Values & mission map", "Tone of voice & product essence", "Clarity: who you are, where you go"],
+    },
+    {
+      id: "wood", order: 2, name: "WOOD", sound: "wood",
+      color: "#7bc47f", essence: "Growth toward the light",
+      obraz: "growth toward the light", image: IMG.wood,
+      points: ["Audience analysis", "Market research", "Competitors", "Positioning", "Growth opportunities"],
+      valueTitle: "What you get",
+      value: "You receive detailed report files: measurements and analytics of the market, niche, competitors and audience from all sources. We see where the light is — and grow exactly there.",
+      deliver: ["Market & niche report", "Metrics: CPM, CTR, CAC, LTV, reach, engagement", "Competitor map", "Clear positioning & growth points"],
+    },
+    {
+      id: "fire", order: 3, name: "FIRE", sound: "fire",
+      color: "#f0803c", essence: "Clarity, energy, focus",
+      obraz: "clarity, energy, focus", image: IMG.fire,
+      points: ["Promotion strategy", "Goals & KPIs", "Content directions", "Action plan", "Communication map", "Semantic core", "Checkpoints & vector"],
+      valueTitle: "What you get",
+      value: "A working strategy for years: goals, KPIs, semantic core, content directions and a communication map. Clarity, energy and focus — you know exactly where you're going and which checkpoints to measure by.",
+      deliver: ["1–3 year marketing strategy", "KPIs & funnels", "Semantic core & content plan", "Checkpoints & development vector"],
+    },
+    {
+      id: "earth", order: 4, name: "EARTH", sound: "earth",
+      color: "#d9a24a", essence: "Nourishment, acceptance, community",
+      obraz: "nourishment, acceptance, community", image: IMG.earth,
+      points: ["Content", "Community & dialogue", "Brand story", "Trust & interaction", "Customer experience", "Longevity, lifetime value"],
+      valueTitle: "What you get",
+      value: "We build a living brand in the digital space: social media, landing, product cards and content scenarios aligned to strategy. Community, trust and dialogue that create lasting relationships and lifetime value.",
+      deliver: ["Social architecture & site/landing", "Product cards & content scenarios", "Community & living dialogue", "Long relationships & lifetime value"],
+    },
+    {
+      id: "metal", order: 5, name: "METAL", sound: "metal",
+      color: "#aeb9cc", essence: "Structure, precision, mastery",
+      obraz: "structure, precision, mastery", image: IMG.metal,
+      points: ["System", "Automation", "Analytics & data", "Process automation", "Ethical AI", "Scaling"],
+      valueTitle: "What you get",
+      value: "We ethically automate processes with artificial intelligence — system, precision and mastery. Analytics, data and scaling that improve quality of life and business efficiency.",
+      deliver: ["System & process automation", "Analytics & data dashboards", "Ethical AI in the workflow", "Ready to scale"],
+    },
+  ],
+};
+
+// ---------------- STAGES ----------------
+export const STAGES = {
+  ua: [
+    { n: "01", title: "ПІДГОТОВКА ТА ПРОСУВАННЯ", text: "Сесія зі мною за чашкою китайського чаю, аби зануритись у вашу історію та створити розуміння і ясність: хто ви, де ви, куди йдете, як можете приносити користь світу.", element: "water" },
+    { n: "02", title: "АНАЛІЗ", text: "Далі переходимо до аналізу саме вашого ринку, вашої аудиторії, сусідів у вашій ніші, аналіз продукту і вже створеного бренду. Виявляємо сильні сторони, ризики та можливості.", element: "wood" },
+    { n: "03", title: "СТРАТЕГІЯ", text: "Розробляємо робочу стратегію, встановлюємо цілі, KPI, позиціонування, контент-план, воронки та план маркетингу на декілька років і встановлюємо checkpoints, за якими рухаємось.", element: "fire" },
+    { n: "04", title: "SMM І КОМУНІКАЦІЯ — БУДУЄМО БРЕНД КОМПЛЕКСНО", text: "Створення архітектури соціальних мереж, сайту, лендингу та прояв вашої цінності у діджитал-просторі. Продуктові карти й сценарії форматам створення, підпорядковані під стратегію та семантичне ядро.", element: "earth" },
+    { n: "05", title: "АВТОМАТИЗАЦІЯ ТА МАСШТАБУВАННЯ", text: "Етично автоматизуємо процеси за допомогою штучного інтелекту для покращення якості життя та ефективності бізнесу.", element: "metal" },
+  ],
+  en: [
+    { n: "01", title: "PREPARATION & PROMOTION", text: "A session with me over a cup of Chinese tea, to dive into your story and create understanding and clarity: who you are, where you are, where you're going, how you can bring value to the world.", element: "water" },
+    { n: "02", title: "ANALYSIS", text: "Next we move to the analysis of your market, your audience, the neighbors in your niche, analysis of the product and the existing brand. We reveal strengths, risks and opportunities.", element: "wood" },
+    { n: "03", title: "STRATEGY", text: "We develop a working strategy, set goals, KPIs, positioning, content plan, funnels and a marketing plan for several years, and set checkpoints to move by.", element: "fire" },
+    { n: "04", title: "SMM & COMMUNICATION — BUILD THE BRAND", text: "Creating the architecture of social networks, website, landing and the manifestation of your value in the digital space. Product cards and content scenarios aligned to the strategy and semantic core.", element: "earth" },
+    { n: "05", title: "AUTOMATION & SCALING", text: "We ethically automate processes with artificial intelligence to improve quality of life and business efficiency.", element: "metal" },
+  ],
+};
+
+// ---------------- TOOLS ----------------
+export const TOOLS = {
+  ua: ["Створення контенту", "Воронки", "Conversion Rate Optimization", "Сайти та лендинги", "SEO оптимізація", "Веб-аналітика", "Email-маркетинг & Push", "Google Ads", "Реклама в Instagram & Facebook", "Ведення YouTube", "SMM & Community", "AI етична автоматизація"],
+  en: ["Content creation", "Funnels", "Conversion Rate Optimization", "Sites & landing pages", "SEO optimization", "Web analytics", "Email marketing & Push", "Google Ads", "Instagram & Facebook Ads", "YouTube management", "SMM & Community", "AI ethical automation"],
+};
+
+// ---------------- ABOUT ----------------
+export const ABOUT = {
+  ua: [
+    { icon: "GraduationCap", text: "Готуюсь до виходу на орбіту в маркетингу. І бачу свій розвиток у цьому векторі на подальші роки." },
+    { icon: "Briefcase", text: "Я маркетолог, дослідник сенсів і систем. Допомагаю брендам та проєктам знаходити свою північну зірку та створювати етичний маркетинг — вибудовуючи довіру і створюючи продукт." },
+    { icon: "Brain", text: "Я навчався в Київському університеті культури і мистецтв на оператора кіно." },
+    { icon: "Film", text: "Працював з першого курсу і створював відео для брендів, івентів, рекламні ролики, а також працював у рекламній агенції ZLODEITEAM, де ми створювали рекламу і контент для блогерів у сфері кіберспорту України." },
+    { icon: "Sparkles", text: "Зараз поглиблююсь у психологію, Human Design, NLP, філософію. Навчався медитації і продовжую навчатись далі." },
+    { icon: "PersonStanding", text: "Я сучасний йог, який допомагає у сфері маркетингу." },
+    { icon: "Headphones", text: "Нещодавно працював у customer support в астрологічному додатку Nebula." },
+  ],
+  en: [
+    { icon: "GraduationCap", text: "I'm preparing to launch into orbit in marketing. And I see my growth in this vector for the years ahead." },
+    { icon: "Briefcase", text: "I'm a marketer, a researcher of meanings and systems. I help brands and projects find their North Star and create ethical marketing — building trust and creating product." },
+    { icon: "Brain", text: "I studied at the Kyiv University of Culture and Arts as a film operator." },
+    { icon: "Film", text: "From my first year I created videos for brands, events, commercials, and worked at the ZLODEITEAM ad agency, where we created ads and content for bloggers in Ukraine's esports scene." },
+    { icon: "Sparkles", text: "Now I'm deepening into psychology, Human Design, NLP, philosophy. I studied meditation and keep learning further." },
+    { icon: "PersonStanding", text: "I'm a modern yogi who helps in the field of marketing." },
+    { icon: "Headphones", text: "Recently I worked in customer support at the Nebula astrology app." },
+  ],
+};
+
+// ---------------- HELP ----------------
+export const HELP = {
+  ua: [
+    "Бути корисним зараз людям, які вже мають бізнес в етичних сферах і хочуть покращувати свої метрики і результати.",
+    "Допомогти створити бренд з повного нуля новачкам, які тільки стартують.",
+    "Допомогти створити сайт або лендинг.",
+    "Допомогти окремі процеси робити так, і в цілому — комплексний підхід.",
+    "Бренд і праця зі мною — це про комплексний підхід.",
+  ],
+  en: [
+    "Be useful right now to people who already have a business in ethical fields and want to improve their metrics and results.",
+    "Help create a brand from scratch for beginners who are just starting.",
+    "Help create a website or landing page.",
+    "Help make individual processes work — and, overall, a complex approach.",
+    "A brand and working with me — it's about a complex approach.",
+  ],
+};
+
+// ---------------- UI STRINGS ----------------
+export const UI = {
+  ua: {
+    brand: "ВАШ БРЕНД",
+    brandSub: "як жива структура для живих людей",
+    navElements: "Стихії", navStages: "Етапи", navTools: "Інструменти", navAbout: "Про мене", navContact: "Контакт",
+    heroKicker: "ЕТИЧНИЙ КОМПЛЕКСНИЙ",
+    heroTitle: "МАРКЕТИНГ",
+    heroSub: "для людей, які створюють цінність людям",
+    wheelHint: "Обертай коло та натисни на стихію",
+    stagesTitle: "ЕТАПИ КОМПЛЕКСНОГО МАРКЕТИНГУ",
+    toolsTitle: "ІНСТРУМЕНТИ ТА НАПРЯМИ",
+    aboutTitle: "ПРО МЕНЕ",
+    helpTitle: "Я МОЖУ ДОПОМОГТИ",
+    northStar: "Працюю з людьми та брендами, що несуть цінність. Допомагаю знаходити ПІВНІЧНУ ЗІРКУ та рухатися впевнено до результату.",
+    neighborsTitle: "СУСІДИ У ВАШІЙ НІШІ",
+    neighbors: "співпраця, розвиток, взаємний ріст і створення цінності разом.",
+    ctaTitle: "ЯКЩО ВІДЧУВАЄТЕ, ЩО НАМ ПО ДОРОЗІ —",
+    ctaText: "напишіть у приватні повідомлення",
+    footer: ["ЕТИКА У КОЖНОМУ РІШЕННІ", "ГАРМОНІЯ У ПРОЦЕСІ", "ЦІННІСТЬ У РЕЗУЛЬТАТІ"],
+    obraz: "Образ",
+    whatIncludes: "Що включає етап",
+    soundOn: "Звук", tap: "Натисни",
+    writeMe: "Написати мені",
+    startBtn: "Почати з чашки чаю",
+    exploreBtn: "Дослідити стихії",
+  },
+  en: {
+    brand: "YOUR BRAND",
+    brandSub: "as a living structure for living people",
+    navElements: "Elements", navStages: "Stages", navTools: "Tools", navAbout: "About", navContact: "Contact",
+    heroKicker: "ETHICAL COMPLEX",
+    heroTitle: "MARKETING",
+    heroSub: "for people who create value for people",
+    wheelHint: "Rotate the wheel and tap an element",
+    stagesTitle: "STAGES OF COMPLEX MARKETING",
+    toolsTitle: "TOOLS & DIRECTIONS",
+    aboutTitle: "ABOUT ME",
+    helpTitle: "I CAN HELP",
+    northStar: "I work with people and brands that carry value. I help find the NORTH STAR and move confidently toward the result.",
+    neighborsTitle: "NEIGHBORS IN YOUR NICHE",
+    neighbors: "cooperation, growth, mutual rise and creating value together.",
+    ctaTitle: "IF YOU FEEL WE'RE ON THE SAME PATH —",
+    ctaText: "write me a direct message",
+    footer: ["ETHICS IN EVERY DECISION", "HARMONY IN THE PROCESS", "VALUE IN THE RESULT"],
+    obraz: "Image",
+    whatIncludes: "What the stage includes",
+    soundOn: "Sound", tap: "Tap",
+    writeMe: "Write to me",
+    startBtn: "Start with a cup of tea",
+    exploreBtn: "Explore the elements",
+  },
+};

@@ -1,0 +1,96 @@
+import React, { useEffect, useState } from "react";
+import { X, Volume2, VolumeX, ArrowRight, Check } from "lucide-react";
+import ElementCanvas from "./ElementCanvas";
+import { ambient } from "../lib/audio";
+
+export default function ElementModal({ element, ui, onClose }) {
+  const [sound, setSound] = useState(true);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    if (sound) ambient.play(element.sound);
+    const esc = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", esc);
+    return () => {
+      document.body.style.overflow = "";
+      ambient.stop();
+      window.removeEventListener("keydown", esc);
+    };
+    // eslint-disable-next-line
+  }, [element]);
+
+  const toggleSound = () => {
+    const next = !sound;
+    setSound(next);
+    ambient.toggle(next);
+    if (next) ambient.play(element.sound);
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(3,5,10,0.82)", backdropFilter: "blur(6px)" }} onClick={onClose}>
+      <div
+        className="panel panel-glow relative w-full max-w-4xl max-h-[90vh] overflow-y-auto reveal in"
+        style={{ borderColor: `${element.color}66` }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* header visual with live animation */}
+        <div className="relative h-52 md:h-60 overflow-hidden rounded-t-[14px]">
+          <div className="absolute inset-0"><ElementCanvas element={element.sound} /></div>
+          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, transparent 40%, rgba(8,11,22,0.9))` }} />
+          <div className="absolute top-3 right-3 flex gap-2">
+            <button onClick={toggleSound} className="btn-ghost w-10 h-10 flex items-center justify-center rounded-full" title={ui.soundOn}>
+              {sound ? <Volume2 size={18} /> : <VolumeX size={18} />}
+            </button>
+            <button onClick={onClose} className="btn-ghost w-10 h-10 flex items-center justify-center rounded-full">
+              <X size={18} />
+            </button>
+          </div>
+          <div className="absolute bottom-4 left-5 md:left-7">
+            <div className="font-label text-dim tracking-widest text-xs mb-1">{element.order} · {ui.brand}</div>
+            <h3 className="font-display" style={{ fontSize: 42, fontWeight: 800, color: element.color, lineHeight: 1 }}>{element.name}</h3>
+            <div className="font-body text-sm mt-1" style={{ color: "#d8d4c6" }}>{element.essence}</div>
+          </div>
+        </div>
+
+        {/* body */}
+        <div className="p-5 md:p-7 grid md:grid-cols-2 gap-6">
+          <div>
+            <div className="font-label text-xs tracking-widest mb-3" style={{ color: element.color }}>{ui.whatIncludes}</div>
+            <ul className="space-y-2">
+              {element.points.map((p, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-dim">
+                  <span className="mt-1.5 flex-shrink-0 rounded-full" style={{ width: 6, height: 6, background: element.color }} />
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 flex items-center gap-2 text-xs">
+              <span className="font-label tracking-widest text-dim">{ui.obraz}:</span>
+              <span className="italic" style={{ color: element.color }}>{element.obraz}</span>
+            </div>
+          </div>
+
+          <div className="rounded-xl p-4" style={{ background: `linear-gradient(160deg, ${element.color}14, transparent)`, border: `1px solid ${element.color}33` }}>
+            <div className="font-label text-xs tracking-widest mb-2" style={{ color: element.color }}>{element.valueTitle}</div>
+            <p className="font-body text-[13.5px] leading-relaxed" style={{ color: "#e4e0d3" }}>{element.value}</p>
+            <div className="gold-rule my-4" />
+            <ul className="space-y-2">
+              {element.deliver.map((d, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "#cdc9bb" }}>
+                  <Check size={15} className="mt-0.5 flex-shrink-0" style={{ color: element.color }} />
+                  <span>{d}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="px-5 md:px-7 pb-6">
+          <a href="#contact" onClick={onClose} className="btn-gold inline-flex items-center gap-2 px-6 py-3 text-sm">
+            {ui.startBtn} <ArrowRight size={16} />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
