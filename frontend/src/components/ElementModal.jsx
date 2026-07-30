@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { X, Volume2, VolumeX, ArrowRight, Check } from "lucide-react";
+import { X, Volume2, VolumeX, ArrowRight, Check, Sparkles } from "lucide-react";
 import ElementCanvas from "./ElementCanvas";
 import { ambient } from "../lib/audio";
 
@@ -85,7 +85,26 @@ export default function ElementModal({ element, ui, onClose }) {
           </div>
         </div>
 
-        <div className="px-5 md:px-7 pb-6">
+        <div className="px-5 md:px-7 pb-2">
+          {element.creatures && (
+            <div className="flex items-start gap-2 mb-3 rounded-lg px-3 py-2" style={{ background: `${element.color}10`, border: `1px solid ${element.color}2e` }}>
+              <Sparkles size={15} className="mt-0.5 flex-shrink-0" style={{ color: element.color }} />
+              <span className="font-body italic text-[12.5px]" style={{ color: "#d8d4c6" }}>{element.creatures}</span>
+            </div>
+          )}
+          {element.cases && (
+            <div>
+              <div className="font-label text-xs tracking-widest mb-2" style={{ color: element.color }}>{ui.casesTitle}</div>
+              <div className="grid md:grid-cols-2 gap-3">
+                {element.cases.map((c, i) => (
+                  <div key={i} className="rounded-lg p-3 font-body text-[12.5px] leading-relaxed" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(230,198,122,0.15)", color: "#cdc9bb" }}>{c}</div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="px-5 md:px-7 pb-6 pt-4">
           <a href="#contact" onClick={onClose} className="btn-gold inline-flex items-center gap-2 px-6 py-3 text-sm">
             {ui.startBtn} <ArrowRight size={16} />
           </a>

@@ -155,6 +155,104 @@ export const METHOD = {
   },
 };
 
+// ---------------- ENRICH (creatures, cases, deeper value) ----------------
+export const ENRICH = {
+  ua: {
+    water: {
+      creatures: "Дельфіни, кити та затонула Атлантида — глибина, де народжується сенс.",
+      value: "Перша зустріч за чашкою китайського чаю — це радше коучингова сесія, ніж брифінг. Через питання і дизайн людини (Human Design) ти усвідомлюєш, хто ти, свої ролі та справжній сенс продукту. З перспективи етичного маркетингу ми не «продаємо маску», а знаходимо твою правду — і будуємо комунікацію, що не виснажує, а живить. Ти знаходиш «Північну зірку» і починаєш рухатись із найвищим ККД.",
+      cases: [
+        "Кейс: підприємиця вигоріла, женучись за трендами. Після занурення знайшли справжній сенс продукту — контент почав резонувати без насилля над собою, продажі стали природними.",
+        "Кейс: коуч не міг сформулювати оффер. Розбір ролей за Human Design показав його силу — позиціонування склалося за одну сесію.",
+      ],
+    },
+    wood: {
+      creatures: "Зелені ельфи серед велетенських секвой — ріст туди, де є світло.",
+      cases: [
+        "Кейс: бренд «стріляв наосліп». Аналіз ніші й конкурентів показав вільну нішу — зайшли туди, де світло, і охоплення зросло без збільшення бюджету.",
+        "Кейс: незрозуміло, хто аудиторія. Замір метрик і сегментація виявили платоспроможний сегмент, який раніше ігнорували.",
+      ],
+    },
+    fire: {
+      creatures: "Божі іскри — жива енергія, що дає ясність і фокус.",
+      cases: [
+        "Кейс: багато хаотичних дій без результату. Стратегія з KPI і чек-поінтами дала фокус — команда нарешті знала, що і навіщо робить.",
+        "Кейс: контент «ні про що». Семантичне ядро та комунікаційна карта перетворили стрічку на послідовну історію бренду.",
+      ],
+    },
+    earth: {
+      creatures: "Гноми з ліхтарями у кришталевих печерах — коріння, спільнота й довіра.",
+      cases: [
+        "Кейс: підписники є, продажів нема. Побудували живе ком'юніті та діалог — довіра зросла, а з нею й LTV.",
+        "Кейс: розрізнені акаунти. Єдина архітектура соцмереж і лендинг зробили шлях клієнта цілісним.",
+      ],
+    },
+    metal: {
+      creatures: "Механізми, шестерні та священна геометрія — точність автоматизованих систем.",
+      value: "Етично автоматизуємо процеси за допомогою ШІ — так, щоб технології служили людині, а не навпаки. Налаштовуємо автоматизацію контенту й розсилок, авто-воронки та чат-ботів, збір і аналітику даних у дашбордах, автоматичні звіти та повторювані рутини. Система, точність і майстерність вивільняють твій час на творчість і масштабування.",
+      cases: [
+        "Кейс: власник тонув у рутині. Автоматизували розсилки, звіти та обробку заявок — звільнили ~15 годин на тиждень.",
+        "Кейс: дані розкидані. Єдиний дашборд з авто-аналітикою дав рішення на фактах, а не на відчуттях.",
+        "Кейс: ручні відповіді 24/7. Етичний AI-бот узяв першу лінію підтримки, зберігши людяність тону.",
+      ],
+    },
+    brand: {
+      creatures: "Янголи та світло цілісності — квітка життя, що поєднує всі стихії.",
+      cases: [
+        "Кейс: сильні окремі активності, але бренд «розсипався». Поєднання 5 стихій у єдину структуру зробило його цілісним і впізнаваним.",
+        "Кейс: маркетинг конфліктував із природою власника. Узгодження з Human Design зробило роботу легкою та щирою.",
+      ],
+    },
+  },
+  en: {
+    water: {
+      creatures: "Dolphins, whales and a sunken Atlantis — the depth where meaning is born.",
+      value: "The first meeting over a cup of Chinese tea is a coaching session rather than a briefing. Through questions and Human Design you realize who you are, your roles and the true meaning of your product. From an ethical-marketing perspective we don't 'sell a mask' — we find your truth and build communication that nourishes instead of draining. You find your North Star and start moving at the highest efficiency.",
+      cases: [
+        "Case: an entrepreneur burned out chasing trends. After the immersion we found the real product meaning — content resonated without forcing herself, and sales became natural.",
+        "Case: a coach couldn't formulate an offer. A Human Design role breakdown revealed his strength — positioning came together in one session.",
+      ],
+    },
+    wood: {
+      creatures: "Green elves among giant sequoias — growth toward the light.",
+      cases: [
+        "Case: the brand was 'shooting blind'. Niche and competitor analysis found an open niche — we grew where the light was, reach rose without more budget.",
+        "Case: the audience was unclear. Metrics and segmentation revealed a paying segment that had been ignored.",
+      ],
+    },
+    fire: {
+      creatures: "Divine sparks — living energy that gives clarity and focus.",
+      cases: [
+        "Case: many chaotic actions, no result. A strategy with KPIs and checkpoints gave focus — the team finally knew what and why.",
+        "Case: content 'about nothing'. A semantic core and communication map turned the feed into a coherent brand story.",
+      ],
+    },
+    earth: {
+      creatures: "Gnomes with lanterns in crystal caves — roots, community and trust.",
+      cases: [
+        "Case: followers but no sales. We built a living community and dialogue — trust grew, and with it LTV.",
+        "Case: scattered accounts. A single social architecture and landing made the customer journey whole.",
+      ],
+    },
+    metal: {
+      creatures: "Mechanisms, gears and sacred geometry — the precision of automated systems.",
+      value: "We ethically automate processes with AI — so technology serves the human, not the other way around. We set up content and email automation, auto-funnels and chatbots, data collection and analytics dashboards, automatic reports and repetitive routines. System, precision and mastery free your time for creativity and scaling.",
+      cases: [
+        "Case: the owner was drowning in routine. We automated emails, reports and lead handling — freeing ~15 hours a week.",
+        "Case: data was scattered. A single dashboard with auto-analytics enabled decisions based on facts, not feelings.",
+        "Case: manual replies 24/7. An ethical AI bot took the first support line while keeping a human tone.",
+      ],
+    },
+    brand: {
+      creatures: "Angels and the light of wholeness — the flower of life that unites all elements.",
+      cases: [
+        "Case: strong separate activities, but the brand 'fell apart'. Uniting the 5 elements into one structure made it whole and recognizable.",
+        "Case: marketing conflicted with the owner's nature. Alignment with Human Design made the work light and sincere.",
+      ],
+    },
+  },
+};
+
 // ---------------- STAGES ----------------
 export const STAGES = {
   ua: [
@@ -230,7 +328,7 @@ export const UI = {
     heroKicker: "ЕТИЧНИЙ КОМПЛЕКСНИЙ",
     heroTitle: "МАРКЕТИНГ",
     heroSub: "для людей, які створюють цінність людям",
-    wheelHint: "Обертай коло та натисни на стихію",
+    wheelHint: "Наведи, щоб оживити стихії · натисни, щоб відкрити",
     stagesTitle: "ЕТАПИ КОМПЛЕКСНОГО МАРКЕТИНГУ",
     toolsTitle: "ІНСТРУМЕНТИ ТА НАПРЯМИ",
     aboutTitle: "ПРО МЕНЕ",
@@ -243,6 +341,7 @@ export const UI = {
     footer: ["ЕТИКА У КОЖНОМУ РІШЕННІ", "ГАРМОНІЯ У ПРОЦЕСІ", "ЦІННІСТЬ У РЕЗУЛЬТАТІ"],
     obraz: "Образ",
     whatIncludes: "Що включає етап",
+    casesTitle: "Кейси · що вирішує цей етап",
     soundOn: "Звук", tap: "Натисни",
     writeMe: "Написати мені",
     startBtn: "Почати з чашки чаю",
@@ -255,7 +354,7 @@ export const UI = {
     heroKicker: "ETHICAL COMPLEX",
     heroTitle: "MARKETING",
     heroSub: "for people who create value for people",
-    wheelHint: "Rotate the wheel and tap an element",
+    wheelHint: "Hover to bring the elements alive · tap to open",
     stagesTitle: "STAGES OF COMPLEX MARKETING",
     toolsTitle: "TOOLS & DIRECTIONS",
     aboutTitle: "ABOUT ME",
@@ -268,6 +367,7 @@ export const UI = {
     footer: ["ETHICS IN EVERY DECISION", "HARMONY IN THE PROCESS", "VALUE IN THE RESULT"],
     obraz: "Image",
     whatIncludes: "What the stage includes",
+    casesTitle: "Cases · what this stage solves",
     soundOn: "Sound", tap: "Tap",
     writeMe: "Write to me",
     startBtn: "Start with a cup of tea",

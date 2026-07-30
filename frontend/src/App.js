@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { Globe2, ChevronDown } from "lucide-react";
-import { ELEMENTS, STAGES, TOOLS, ABOUT, HELP, UI, CONTACT_EMAIL, METHOD } from "./mock";
+import { ELEMENTS, STAGES, TOOLS, ABOUT, HELP, UI, CONTACT_EMAIL, METHOD, ENRICH } from "./mock";
 import ElementWheel from "./components/ElementWheel";
 import ElementModal from "./components/ElementModal";
 import Stages from "./components/Stages";
@@ -46,6 +46,8 @@ function App() {
   const [lang, setLang] = useState("ua");
   const [selected, setSelected] = useState(null);
   const ui = UI[lang];
+  const elements = ELEMENTS[lang].map((e) => ({ ...e, ...(ENRICH[lang][e.id] || {}) }));
+  const method = { ...METHOD[lang], ...(ENRICH[lang].brand || {}) };
 
   // scroll reveal
   useEffect(() => {
@@ -96,7 +98,7 @@ function App() {
           </div>
 
           <div className="reveal">
-            <ElementWheel elements={ELEMENTS[lang]} method={METHOD[lang]} ui={ui} onSelect={setSelected} />
+            <ElementWheel elements={elements} method={method} ui={ui} onSelect={setSelected} />
           </div>
 
           <div className="flex justify-center mt-6 reveal">
