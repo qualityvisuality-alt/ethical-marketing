@@ -56,8 +56,8 @@ export default function Planet({ type, size = 118, active = false }) {
           boxShadow: glow, transition: "box-shadow .5s ease",
         }}>
           <img src={img} alt={type} draggable={false}
-            style={{ width: "132%", height: "132%", objectFit: "cover", marginLeft: "-16%", marginTop: "-16%",
-              transform: active ? "scale(1.06)" : "scale(1)", transition: "transform .6s ease" }} />
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center",
+              transform: active ? "scale(1.07)" : "scale(1.01)", transition: "transform .6s ease" }} />
         </div>
       ) : (
         <div className={`planet planet--${type}`} style={{ width: size, height: size, boxShadow: glow, transition: "box-shadow .5s ease" }}>

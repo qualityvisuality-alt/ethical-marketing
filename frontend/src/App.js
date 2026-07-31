@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { Globe2, ChevronDown } from "lucide-react";
-import { ELEMENTS, STAGES, TOOLS, ABOUT, HELP, UI, CONTACT_EMAIL, METHOD, ENRICH } from "./mock";
+import { ELEMENTS, STAGES, TOOLS, ABOUT, HELP, UI, CONTACT_EMAIL, METHOD, ENRICH, FLOW } from "./mock";
 import ElementWheel from "./components/ElementWheel";
 import ElementModal from "./components/ElementModal";
 import Stages from "./components/Stages";
@@ -112,7 +112,7 @@ function App() {
 
       <div className="gold-rule max-w-4xl mx-auto" />
 
-      <Stages stages={STAGES[lang]} title={ui.stagesTitle} />
+      <Stages stages={STAGES[lang]} title={ui.stagesTitle} flow={FLOW[lang]} />
       <div className="gold-rule max-w-4xl mx-auto" />
       <Tools tools={TOOLS[lang]} title={ui.toolsTitle} />
       <div className="gold-rule max-w-4xl mx-auto" />
