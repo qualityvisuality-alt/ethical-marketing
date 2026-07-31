@@ -1,9 +1,12 @@
 import React from "react";
 import waterImg from "../assets/planets/water.png";
 import metalImg from "../assets/planets/metal.png";
+import woodImg from "../assets/planets/wood.png";
+import fireImg from "../assets/planets/fire.png";
+import earthImg from "../assets/planets/earth.png";
 
-// Hyperreal generated planet images (add wood/fire/earth here once generated)
-const IMAGES = { water: waterImg, metal: metalImg };
+// Hyperreal generated planet images
+const IMAGES = { water: waterImg, metal: metalImg, wood: woodImg, fire: fireImg, earth: earthImg };
 
 const GLOW = { water: "#5aa9e6", wood: "#7bc47f", fire: "#f0803c", earth: "#d9a24a", metal: "#aeb9cc", brand: "#f6e7b0" };
 

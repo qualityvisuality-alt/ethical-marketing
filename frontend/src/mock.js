@@ -115,7 +115,7 @@ export const METHOD = {
     id: "brand", order: "★", name: "ВАШ БРЕНД", sound: "brand",
     color: "#f6e7b0", essence: "як жива структура для живих людей",
     obraz: "квітка життя, цілісність, правда", image: IMG.cosmos,
-    kicker: "МЕТОД · ЖИВА СТРУКТУРА",
+    kicker: "ЕФІР · СВІДОМІСТЬ І ЄДНІСТЬ",
     points: [
       "Вода — сенс, коріння і чесність із собою",
       "Дерево — напрям росту туди, де світло",
@@ -124,7 +124,7 @@ export const METHOD = {
       "Метал — структура, система і майстерність",
     ],
     valueTitle: "Чому це працює разом",
-    value: "П'ять стихій — це не етапи заради етапів, а живий цикл, у якому кожен елемент живить наступний: вода дає сенс, дерево — напрям, вогонь — дію, земля — стосунки, метал — систему. Разом вони утворюють цілісний організм бренду, а не набір розрізнених тактик. Цей метод працює у поєднанні з твоїм дизайном людини (Human Design): ми будуємо стратегію так, щоб вона відповідала твоїй природі, енергії та ролям — тоді дія стає легкою й ефективною. І головне: автентичність має сенс лише тоді, коли є щирість і правда — у першу чергу із самим собою. Бренд не можна зіграти. Коли ти чесний із собою, твоя цінність стає видимою, і люди відчувають її без слів.",
+    value: "Ефір — шоста, невидима стихія, що поєднує решту п'ять у єдине ціле. Це і є твій бренд: свідомість і єдність. П'ять стихій — це не етапи заради етапів, а живий цикл, у якому кожен елемент живить наступний: вода дає сенс, дерево — напрям, вогонь — дію, земля — стосунки, метал — систему. Разом вони утворюють цілісний організм бренду, а не набір розрізнених тактик. Цей метод працює у поєднанні з твоїм дизайном людини (Human Design): ми будуємо стратегію так, щоб вона відповідала твоїй природі, енергії та ролям — тоді дія стає легкою й ефективною. І головне: автентичність має сенс лише тоді, коли є щирість і правда — у першу чергу із самим собою. Бренд не можна зіграти. Коли ти чесний із собою, твоя цінність стає видимою, і люди відчувають її без слів.",
     deliver: [
       "Цілісний бренд, а не набір розрізнених тактик",
       "Стратегія у гармонії з твоїм Human Design",
@@ -136,7 +136,7 @@ export const METHOD = {
     id: "brand", order: "★", name: "YOUR BRAND", sound: "brand",
     color: "#f6e7b0", essence: "a living structure for living people",
     obraz: "flower of life, wholeness, truth", image: IMG.cosmos,
-    kicker: "THE METHOD · LIVING STRUCTURE",
+    kicker: "ETHER · CONSCIOUSNESS & UNITY",
     points: [
       "Water — meaning, roots and honesty with yourself",
       "Wood — the direction of growth toward the light",
@@ -145,7 +145,7 @@ export const METHOD = {
       "Metal — structure, system and mastery",
     ],
     valueTitle: "Why it works together",
-    value: "The five elements are not stages for the sake of stages, but a living cycle where each element feeds the next: water gives meaning, wood gives direction, fire gives action, earth gives relationships, metal gives the system. Together they form a whole brand organism, not a set of scattered tactics. This method works in combination with your Human Design: we build the strategy to match your nature, energy and roles — then action becomes light and effective. And most importantly: authenticity only makes sense when there is sincerity and truth — first of all with yourself. A brand cannot be faked. When you are honest with yourself, your value becomes visible, and people feel it without words.",
+    value: "Ether is the sixth, invisible element that unites the other five into one whole. This is your brand: consciousness and unity. The five elements are not stages for the sake of stages, but a living cycle where each element feeds the next: water gives meaning, wood gives direction, fire gives action, earth gives relationships, metal gives the system. Together they form a whole brand organism, not a set of scattered tactics. This method works in combination with your Human Design: we build the strategy to match your nature, energy and roles — then action becomes light and effective. And most importantly: authenticity only makes sense when there is sincerity and truth — first of all with yourself. A brand cannot be faked. When you are honest with yourself, your value becomes visible, and people feel it without words.",
     deliver: [
       "A whole brand, not scattered tactics",
       "Strategy in harmony with your Human Design",
