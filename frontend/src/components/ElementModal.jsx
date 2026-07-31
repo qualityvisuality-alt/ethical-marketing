@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { X, Volume2, VolumeX, ArrowRight, Check, Sparkles } from "lucide-react";
 import ElementCanvas from "./ElementCanvas";
 import { ambient } from "../lib/audio";
+import { ELEMENT_ICON } from "../lib/elementIcons";
 
 export default function ElementModal({ element, ui, onClose }) {
+  const EIcon = ELEMENT_ICON[element.id] || Sparkles;
   const [sound, setSound] = useState(true);
 
   useEffect(() => {
@@ -47,7 +49,12 @@ export default function ElementModal({ element, ui, onClose }) {
           </div>
           <div className="absolute bottom-4 left-5 md:left-7">
             <div className="font-label text-dim tracking-widest text-xs mb-1">{element.kicker || `${element.order} · ${ui.brand}`}</div>
-            <h3 className="font-display" style={{ fontSize: 42, fontWeight: 800, color: element.color, lineHeight: 1 }}>{element.name}</h3>
+            <div className="flex items-center gap-3">
+              <span className="flex items-center justify-center rounded-full flex-shrink-0" style={{ width: 46, height: 46, border: `1.5px solid ${element.color}`, background: `${element.color}1f`, boxShadow: `0 0 18px ${element.color}55` }}>
+                <EIcon size={24} style={{ color: element.color }} />
+              </span>
+              <h3 className="font-display" style={{ fontSize: 42, fontWeight: 800, color: element.color, lineHeight: 1 }}>{element.name}</h3>
+            </div>
             <div className="font-body text-sm mt-1" style={{ color: "#d8d4c6" }}>{element.essence}</div>
           </div>
         </div>
@@ -65,6 +72,7 @@ export default function ElementModal({ element, ui, onClose }) {
               ))}
             </ul>
             <div className="mt-5 flex items-center gap-2 text-xs">
+              <EIcon size={16} style={{ color: element.color }} />
               <span className="font-label tracking-widest text-dim">{ui.obraz}:</span>
               <span className="italic" style={{ color: element.color }}>{element.obraz}</span>
             </div>

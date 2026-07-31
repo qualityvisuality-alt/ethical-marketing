@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Sparkles } from "lucide-react";
 import Planet from "./Planet";
+import { ELEMENT_ICON } from "../lib/elementIcons";
 
 function flowerCenters(cx, cy, r) {
   const pts = [{ x: cx, y: cy }];
@@ -96,7 +97,8 @@ export default function ElementWheel({ elements, method, ui, onSelect }) {
                     </div>
                     {/* designer label */}
                     <span className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none" style={{ bottom: -30 }}>
-                      <span className="font-label block" style={{ fontSize: 12, letterSpacing: "0.18em", color: el.color, opacity: isHov ? 1 : 0.9, textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
+                      <span className="font-label flex items-center justify-center gap-1.5" style={{ fontSize: 12, letterSpacing: "0.18em", color: el.color, opacity: isHov ? 1 : 0.9, textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
+                        {(() => { const EIcon = ELEMENT_ICON[el.id] || Sparkles; return <EIcon size={13} style={{ color: el.color }} />; })()}
                         {el.order} · {el.name}
                       </span>
                       <span className="font-body block italic transition-all duration-300" style={{ fontSize: 10.5, color: "#cfcabb", maxWidth: 150, whiteSpace: "normal", margin: "2px auto 0", opacity: isHov ? 1 : 0, transform: isHov ? "translateY(0)" : "translateY(-4px)", textShadow: "0 1px 6px rgba(0,0,0,0.95)" }}>

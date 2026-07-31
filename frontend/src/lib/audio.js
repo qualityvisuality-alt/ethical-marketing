@@ -85,33 +85,35 @@ export class AmbientAudio {
   }
 
   _fire(out) {
-    // Warm fire roar (brown noise body)
+    // Smooth fireplace roar (no mechanical crackle)
     const s = this._src('brown');
-    const lp = this.ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 700; lp.Q.value = 0.7;
-    const g = this.ctx.createGain(); g.gain.value = 0.6;
-    // slow roar swell
-    const lfo = this.ctx.createOscillator(); const lg = this.ctx.createGain();
-    lfo.frequency.value = 0.25; lg.gain.value = 0.18; lfo.connect(lg); lg.connect(g.gain); lfo.start();
+    const lp = this.ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 620; lp.Q.value = 0.6;
+    const g = this.ctx.createGain(); g.gain.value = 0.5;
     s.connect(lp); lp.connect(g); g.connect(out);
-    this._reg(lfo); this._reg(lg);
-    // airy hiss layer
+    // fractal swells: several slow LFOs modulating gain for an organic evolving flame
+    [[0.13, 0.13], [0.07, 0.10], [0.21, 0.06], [0.037, 0.05]].forEach(([f, amt]) => {
+      const lfo = this.ctx.createOscillator(); const lg = this.ctx.createGain();
+      lfo.frequency.value = f; lg.gain.value = amt; lfo.connect(lg); lg.connect(g.gain); lfo.start();
+      this._reg(lfo); this._reg(lg);
+    });
+    // slow filter breathing
+    const flt = this.ctx.createOscillator(); const flg = this.ctx.createGain();
+    flt.frequency.value = 0.09; flg.gain.value = 220; flt.connect(flg); flg.connect(lp.frequency); flt.start();
+    this._reg(flt); this._reg(flg);
+    // soft airy hiss layer
     const s2 = this._src('white');
-    const bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1600; bp.Q.value = 0.5;
-    const g2 = this.ctx.createGain(); g2.gain.value = 0.06;
+    const bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1400; bp.Q.value = 0.4;
+    const g2 = this.ctx.createGain(); g2.gain.value = 0.035;
     s2.connect(bp); bp.connect(g2); g2.connect(out);
-    // crackle / pops
-    const crackle = () => {
-      if (this.current !== 'fire') return;
-      const cs = this.ctx.createBufferSource(); cs.buffer = this._noise('white');
-      const hp = this.ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 2500;
-      const cg = this.ctx.createGain();
-      const peak = 0.28 + Math.random() * 0.35;
-      cg.gain.setValueAtTime(0.0001, this.ctx.currentTime);
-      cg.gain.exponentialRampToValueAtTime(peak, this.ctx.currentTime + 0.004);
-      cg.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.06);
-      cs.connect(hp); hp.connect(cg); cg.connect(out); cs.start(); cs.stop(this.ctx.currentTime + 0.08);
-    };
-    this.timers.push(setInterval(() => { for (let i = 0; i < Math.ceil(Math.random() * 4); i++) crackle(); }, 200));
+    // 369 vibration drone (3 : 6 : 9 ratio) — the "tuning" of the fire
+    [[99, 0.10], [198, 0.05], [297, 0.03]].forEach(([f, amp], i) => {
+      const o = this.ctx.createOscillator(); const og = this.ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f; og.gain.value = amp;
+      const lfo = this.ctx.createOscillator(); const lg = this.ctx.createGain();
+      lfo.frequency.value = 0.06 + i * 0.03; lg.gain.value = amp * 0.5; lfo.connect(lg); lg.connect(og.gain); lfo.start();
+      o.connect(og); og.connect(out); o.start();
+      this._reg(o); this._reg(og); this._reg(lfo); this._reg(lg);
+    });
   }
 
   _forest(out) {
@@ -121,6 +123,15 @@ export class AmbientAudio {
     const lfo = this.ctx.createOscillator(); const lg = this.ctx.createGain();
     lfo.frequency.value = 0.08; lg.gain.value = 300; lfo.connect(lg); lg.connect(bp.frequency); lfo.start();
     s.connect(bp); bp.connect(g); g.connect(out); this._reg(lfo); this._reg(lg);
+    // 639 Hz vibration (solfeggio) — harmony & connection tuning of the wood
+    [[319.5, 0.05], [639, 0.07]].forEach(([f, amp], i) => {
+      const o = this.ctx.createOscillator(); const og = this.ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f; og.gain.value = amp;
+      const vlfo = this.ctx.createOscillator(); const vlg = this.ctx.createGain();
+      vlfo.frequency.value = 0.07 + i * 0.03; vlg.gain.value = amp * 0.5; vlfo.connect(vlg); vlg.connect(og.gain); vlfo.start();
+      o.connect(og); og.connect(out); o.start();
+      this._reg(o); this._reg(og); this._reg(vlfo); this._reg(vlg);
+    });
     const chirp = () => {
       if (this.current !== 'wood') return;
       const n = 2 + Math.floor(Math.random()*3);
