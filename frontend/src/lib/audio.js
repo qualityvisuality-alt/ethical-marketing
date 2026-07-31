@@ -85,21 +85,33 @@ export class AmbientAudio {
   }
 
   _fire(out) {
+    // Warm fire roar (brown noise body)
     const s = this._src('brown');
-    const lp = this.ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value = 900;
-    const g = this.ctx.createGain(); g.gain.value = 0.5;
+    const lp = this.ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 700; lp.Q.value = 0.7;
+    const g = this.ctx.createGain(); g.gain.value = 0.6;
+    // slow roar swell
+    const lfo = this.ctx.createOscillator(); const lg = this.ctx.createGain();
+    lfo.frequency.value = 0.25; lg.gain.value = 0.18; lfo.connect(lg); lg.connect(g.gain); lfo.start();
     s.connect(lp); lp.connect(g); g.connect(out);
+    this._reg(lfo); this._reg(lg);
+    // airy hiss layer
+    const s2 = this._src('white');
+    const bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1600; bp.Q.value = 0.5;
+    const g2 = this.ctx.createGain(); g2.gain.value = 0.06;
+    s2.connect(bp); bp.connect(g2); g2.connect(out);
+    // crackle / pops
     const crackle = () => {
       if (this.current !== 'fire') return;
       const cs = this.ctx.createBufferSource(); cs.buffer = this._noise('white');
-      const hp = this.ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value = 2000;
+      const hp = this.ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 2500;
       const cg = this.ctx.createGain();
+      const peak = 0.28 + Math.random() * 0.35;
       cg.gain.setValueAtTime(0.0001, this.ctx.currentTime);
-      cg.gain.exponentialRampToValueAtTime(0.25 + Math.random()*0.3, this.ctx.currentTime + 0.005);
-      cg.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.08);
-      cs.connect(hp); hp.connect(cg); cg.connect(out); cs.start(); cs.stop(this.ctx.currentTime + 0.1);
+      cg.gain.exponentialRampToValueAtTime(peak, this.ctx.currentTime + 0.004);
+      cg.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.06);
+      cs.connect(hp); hp.connect(cg); cg.connect(out); cs.start(); cs.stop(this.ctx.currentTime + 0.08);
     };
-    this.timers.push(setInterval(() => { for (let i=0;i<Math.ceil(Math.random()*3);i++) crackle(); }, 260));
+    this.timers.push(setInterval(() => { for (let i = 0; i < Math.ceil(Math.random() * 4); i++) crackle(); }, 200));
   }
 
   _forest(out) {
