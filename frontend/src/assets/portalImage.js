@@ -1,1 +1,1 @@
-PLACEHOLDER
+export const PORTAL_IMAGE = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA...";
