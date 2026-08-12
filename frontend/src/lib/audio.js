@@ -2,11 +2,7 @@
 // not claims about scientifically measured planetary frequencies or health effects.
 export class AmbientAudio{
  constructor(){this.ctx=null;this.master=null;this.nodes=[];this.timers=[];this.current=null;this.enabled=true;this.noises={}}
- ensure(){
-  if(!this.ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return false;this.ctx=new AC();this.master=this.ctx.createGain();this.master.gain.value=.0001;this.master.connect(this.ctx.destination)}
-  if(this.ctx.state!=="running")this.ctx.resume().catch(()=>{});
-  return true;
- }
+ ensure(){if(!this.ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return false;this.ctx=new AC();this.master=this.ctx.createGain();this.master.gain.value=.0001;this.master.connect(this.ctx.destination)}if(this.ctx.state!=="running")this.ctx.resume().catch(()=>{});return true}
  noise(kind="white"){if(this.noises[kind])return this.noises[kind];const len=this.ctx.sampleRate*2,b=this.ctx.createBuffer(1,len,this.ctx.sampleRate),d=b.getChannelData(0);let last=0;for(let i=0;i<len;i++){const w=Math.random()*2-1;if(kind==="brown"){last=(last+.025*w)/1.025;d[i]=last*3.4}else if(kind==="pink"){last=.985*last+.12*w;d[i]=last*.55}else d[i]=w*.65}this.noises[kind]=b;return b}
  src(kind){const s=this.ctx.createBufferSource();s.buffer=this.noise(kind);s.loop=true;s.start();this.nodes.push(s);return s}
  osc(freq,type="sine",gain=.05,out=this.master){const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type=type;o.frequency.value=freq;g.gain.value=gain;o.connect(g);g.connect(out);o.start();this.nodes.push(o,g);return o}
