@@ -1,0 +1,2 @@
+Redeploy trigger: 2026-08-12T17:10+02:00
+Reason: previous rapid push sequence may not have triggered the deployment hook.
