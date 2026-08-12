@@ -1,0 +1,55 @@
+import React, { useEffect, useRef, useState } from "react";
+import { ArrowDown, ArrowRight, X } from "lucide-react";
+import { ambient } from "../lib/audio";
+
+const PLANETS = [
+  { id:"sun", name:"Сонце", en:"Sun", role:"Ядро бренду", enRole:"Brand core", archetype:"Я", element:"Вогонь", color:"#ffd36b", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Sun_disk.jpg", size:104, orbit:0, period:0 },
+  { id:"mercury", name:"Меркурій", en:"Mercury", role:"Мова та комунікація", enRole:"Language & communication", archetype:"Інтелект", element:"Метал", color:"#b9a99a", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Mercury_-_accurate_colour.png", size:27, orbit:1, period:18 },
+  { id:"venus", name:"Венера", en:"Venus", role:"Візуал і привабливість", enRole:"Visual & attraction", archetype:"Цінність", element:"Земля", color:"#e4b27b", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Venus_colour.png", size:34, orbit:2, period:24 },
+  { id:"earth", name:"Земля", en:"Earth", role:"Досвід і стосунки", enRole:"Experience & relationships", archetype:"Втілення", element:"Земля", color:"#66a9ff", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/NASA_Earth_America_2002.jpg", size:38, orbit:3, period:31 },
+  { id:"mars", name:"Марс", en:"Mars", role:"Трафік і дія", enRole:"Traffic & action", archetype:"Воля", element:"Вогонь", color:"#d8784e", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Mars_accurate_colour.png", size:31, orbit:4, period:39 },
+  { id:"jupiter", name:"Юпітер", en:"Jupiter", role:"Стратегія і ріст", enRole:"Strategy & growth", archetype:"Мудрість", element:"Дерево", color:"#d8b98e", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Jupiter_in_true_color.jpg", size:62, orbit:5, period:51 },
+  { id:"saturn", name:"Сатурн", en:"Saturn", role:"Система та аналітика", enRole:"System & analytics", archetype:"Структура", element:"Метал", color:"#d8c08d", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Saturn_With_Rhea_and_Dione_%28true_color%29.jpg", size:54, orbit:6, period:63, rings:true },
+  { id:"uranus", name:"Уран", en:"Uranus", role:"Інновація та AI", enRole:"Innovation & AI", archetype:"Свобода", element:"Дерево", color:"#8ad4d8", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Uranus_true_colour.jpg", size:43, orbit:7, period:76 },
+  { id:"neptune", name:"Нептун", en:"Neptune", role:"Образ, відео, уява", enRole:"Image, video & imagination", archetype:"Уява", element:"Вода", color:"#5f7cff", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Neptune_Full.jpg", size:42, orbit:8, period:91 },
+  { id:"pluto", name:"Плутон", en:"Pluto", role:"CRO та трансформація", enRole:"CRO & transformation", archetype:"Перетворення", element:"Земля", color:"#b8958a", image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Nh-pluto-in-true-color_2x.jpg", size:24, orbit:9, period:110, dwarf:true },
+];
+
+const DETAILS = {
+  sun:{ua:"Позиціонування, бренд, ядро пропозиції.",en:"Positioning, brand and the core offer."},
+  mercury:{ua:"Copywriting, контент, SEO-логіка, email та комунікація.",en:"Copywriting, content, SEO logic, email and communication."},
+  venus:{ua:"Фотографія, дизайн, креативи, візуальна система та привабливість.",en:"Photography, design, creative, visual system and attraction."},
+  earth:{ua:"Сайт, UX, community, customer experience та довіра.",en:"Web, UX, community, customer experience and trust."},
+  mars:{ua:"Google Ads, таргет, paid traffic, запуск і дія.",en:"Google Ads, paid social, traffic, launch and action."},
+  jupiter:{ua:"Маркетингова стратегія, розвиток, освіта та масштабування.",en:"Marketing strategy, development, education and growth."},
+  saturn:{ua:"Web-аналітика, KPI, CRM, процеси, воронки та оптимізація.",en:"Web analytics, KPIs, CRM, processes, funnels and optimization."},
+  uranus:{ua:"AI, автоматизація, експерименти та нові канали.",en:"AI, automation, experiments and new channels."},
+  neptune:{ua:"Storytelling, відео, емоційний бренд, атмосфера та символ.",en:"Storytelling, video, emotional branding, atmosphere and symbol."},
+  pluto:{ua:"CRO, A/B-тести, UX-фрикції та зміна поведінкового сценарію.",en:"CRO, A/B tests, UX friction and behavioral transformation."},
+};
+
+export default function SolarSystemHero({lang="ua", onOpen}) {
+  const [angle,setAngle]=useState(0);
+  const [active,setActive]=useState(null);
+  const hoverRef=useRef(false);
+  useEffect(()=>{let last=performance.now(),raf;const tick=(now)=>{const dt=Math.min(now-last,50);last=now;const speed=hoverRef.current?.00035:.00125;setAngle(a=>a+dt*speed);raf=requestAnimationFrame(tick)};raf=requestAnimationFrame(tick);return()=>cancelAnimationFrame(raf)},[]);
+  const title=lang==="ua"?"ЕТИЧНИЙ МАРКЕТИНГ":"ETHICAL MARKETING";
+  const sub=lang==="ua"?"для людей, які створюють цінність людям":"for people who create value for people";
+  const select=(p)=>{setActive(p);ambient.play(p.id)};
+  const planetForModal=(p)=>({...p,sound:p.id,kicker:`ПЛАНЕТАРНИЙ АРХЕТИП · ${p.en}`,essence:`${p.archetype} · ${p.role}`,points:[p.role,DETAILS[p.id][lang]],valueTitle:lang==="ua"?"Маркетинговий принцип":"Marketing principle",value:DETAILS[p.id][lang],deliver:[lang==="ua"?`Стихія: ${p.element}`:`Element: ${p.element}`,lang==="ua"?`Архетип: ${p.archetype}`:`Archetype: ${p.archetype}`,lang==="ua"?"Інструмент обирається під конкретну задачу":"Tool chosen for the concrete task"]});
+  return <section id="solar" className="solar-hero">
+    <div className="solar-title"><div className="solar-kicker">QUALITY VISUALITY</div><h1>{title}</h1><p>{sub}</p></div>
+    <div className="solar-stage" onMouseEnter={()=>{hoverRef.current=true}} onMouseLeave={()=>{hoverRef.current=false}}>
+      <div className="solar-nebula nebula-a"/><div className="solar-nebula nebula-b"/>
+      {[1,2,3,4,5,6,7,8,9].map(i=><div key={i} className={`solar-orbit solar-orbit-${i}`}/>)}
+      <button className="sun-core" onClick={()=>select(PLANETS[0])} aria-label="Сонце"><img src={PLANETS[0].image} alt="Сонце"/><span>ЕТИЧНИЙ<br/>МАРКЕТИНГ</span></button>
+      <div className="solar-rotator" style={{transform:`rotate(${angle}rad)`}}>{PLANETS.slice(1).map(p=>{const theta=(p.orbit-1)*((Math.PI*2)/9)-Math.PI/2;const r=55+p.orbit*5.15;const x=50+(r/2)*Math.cos(theta);const y=50+(r/2)*Math.sin(theta);return <button key={p.id} className={`planet-node planet-${p.id} ${active?.id===p.id?"planet-active":""}`} style={{left:`${x}%`,top:`${y}%`,transform:`translate(-50%,-50%) rotate(${-angle}rad)`,"--planet-glow":p.color}} onClick={e=>{e.stopPropagation();select(p)}} onMouseEnter={()=>setActive(p)} aria-label={`${p.name} — ${p.role}`}><span className="planet-img-wrap" style={{"--planet-glow":p.color}}><img src={p.image} alt={p.name}/>{p.rings&&<i className="planet-rings"/>}</span><span className="planet-label"><b>{lang==="ua"?p.name:p.en}</b><small>{lang==="ua"?p.role:p.enRole}</small></span></button>})}</div>
+      <div className="solar-instruction">{lang==="ua"?"Наведи — орбіта сповільнюється · натисни — відкривається архетип":"Hover — orbit slows · click — open the archetype"}</div>
+    </div>
+    <div className="edge-scroll edge-scroll-left"><ArrowDown size={18}/></div><div className="edge-scroll edge-scroll-right"><ArrowDown size={18}/></div>
+    <a href="#dao" className="solar-next"><span>{lang==="ua"?"ГОРТАЙ ДАЛІ":"SCROLL DOWN"}</span><ArrowDown size={18}/></a>
+    {active&&<div className="planet-quick"><button onClick={()=>setActive(null)} aria-label="Закрити"><X size={15}/></button><div><span className="font-label">{lang==="ua"?active.name:active.en}</span><strong>{lang==="ua"?active.role:active.enRole}</strong><p>{DETAILS[active.id][lang]}</p></div><button className="planet-open" onClick={()=>onOpen?.(planetForModal(active))}><ArrowRight size={16}/></button></div>}
+  </section>;
+}
+
+export { PLANETS, DETAILS };
