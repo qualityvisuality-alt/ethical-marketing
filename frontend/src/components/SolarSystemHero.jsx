@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowRight, Volume2, VolumeX, X } from "lucide-react";
 import { ambient } from "../lib/audio";
+import "./QualityVisualityEnhancements.css";
 
 const PLANETS=[
 {id:"sun",name:"Сонце",en:"Sun",role:"Ядро бренду",enRole:"Brand core",archetype:"Я",element:"Вогонь",color:"#ffd36b",image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Sun_disk.jpg",orbit:0},
