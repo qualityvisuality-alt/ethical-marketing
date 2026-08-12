@@ -1,30 +1,7 @@
 import React, { useState } from "react";
-import { PenTool, Filter, TrendingUp, Globe, Search, BarChart3, Mail, Megaphone, Instagram, Youtube, Users, Cpu, ArrowUpRight } from "lucide-react";
+import { PenTool, Filter, TrendingUp, Globe, Search, BarChart3, Mail, Megaphone, Instagram, Youtube, Cpu, Camera, Video, Lightbulb, Target, ArrowUpRight } from "lucide-react";
 import ToolModal from "./ToolModal";
-
-const ICONS = [PenTool, Filter, TrendingUp, Globe, Search, BarChart3, Mail, Megaphone, Instagram, Youtube, Users, Cpu];
-
-export default function Tools({ tools, title }) {
-  const [selected, setSelected] = useState(null);
-  return (
-    <section id="tools" className="relative py-20 px-5">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-center gap-4 mb-5 reveal"><span className="diamond" /><h2 className="font-label text-center tracking-[0.14em] gold-gradient-text" style={{ fontSize: "clamp(20px,3vw,30px)" }}>{title}</h2><span className="diamond" /></div>
-        <p className="text-center text-dim text-sm max-w-2xl mx-auto mb-12 reveal">Кожен інструмент можна пройти разом зі мною окремо або зібрати в систему під конкретний продукт, курс чи бізнес-задачу.</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {tools.map((t, i) => {
-            const Icon = ICONS[i] || PenTool;
-            return (
-              <button key={i} onClick={() => setSelected(t)} className="tool-card panel p-5 flex flex-col items-center text-center gap-3 reveal group" style={{ animationDelay: `${i * 0.04}s` }} aria-label={`Відкрити ${t}`}>
-                <div className="tool-card-icon w-12 h-12 rounded-full flex items-center justify-center"><Icon size={22} /></div>
-                <span className="font-label text-[11px] tracking-wide text-dim leading-tight">{t}</span>
-                <ArrowUpRight size={13} className="tool-card-arrow" />
-              </button>
-            );
-          })}
-        </div>
-      </div>
-      {selected && <ToolModal tool={selected} onClose={() => setSelected(null)} />}
-    </section>
-  );
-}
+const TOOLSET=[
+ {id:"knowledge",ua:"Цифрові знання",en:"Digital knowledge",icon:Lightbulb,meta:["контекст","система"]},{id:"prep",ua:"Підготовка до просування",en:"Promotion preparation",icon:Target,meta:["офер","KPI"]},{id:"competitors",ua:"Аналіз конкурентів",en:"Competitor analysis",icon:Filter,meta:["ринок","позиція"]},{id:"smm",ua:"SMM",en:"SMM",icon:Instagram,meta:["соцмережі","community"]},{id:"photo",ua:"Створення фотоконтенту",en:"Photo content",icon:Camera,meta:["фото","візуал"]},{id:"analytics",ua:"Web-аналітика",en:"Web analytics",icon:BarChart3,meta:["дані","KPI"]},{id:"funnels",ua:"Воронки",en:"Funnels",icon:TrendingUp,meta:["journey","conversion"]},{id:"cro",ua:"Conversion Rate Optimization",en:"Conversion Rate Optimization",icon:Globe,meta:["UX","A/B"]},{id:"target",ua:"Таргетована реклама",en:"Targeted advertising",icon:Megaphone,meta:["paid","traffic"]},{id:"google",ua:"Google Ads",en:"Google Ads",icon:Search,meta:["search","intent"]},{id:"ai",ua:"AI етична автоматизація",en:"Ethical AI automation",icon:Cpu,meta:["AI","automation"]},{id:"seo",ua:"SEO",en:"SEO",icon:Search,meta:["organic","search"]},{id:"content",ua:"Контент-маркетинг",en:"Content marketing",icon:PenTool,meta:["content","trust"]},{id:"email",ua:"Email-маркетинг & Push",en:"Email marketing & Push",icon:Mail,meta:["retention","CRM"]},{id:"youtube",ua:"YouTube",en:"YouTube",icon:Youtube,meta:["video","media"]},{id:"video",ua:"Створення відеоконтенту",en:"Video content",icon:Video,meta:["story","video"]},
+];
+export default function Tools({title,lang="ua"}){const [selected,setSelected]=useState(null);return <section id="tools" className="relative py-20 px-5"><div className="max-w-6xl mx-auto"><div className="flex items-center justify-center gap-4 mb-5 reveal"><span className="diamond"/><h2 className="font-label text-center tracking-[.14em] gold-gradient-text" style={{fontSize:"clamp(20px,3vw,30px)"}}>{title}</h2><span className="diamond"/></div><p className="tool-subtitle reveal">{lang==="ua"?"Кожен інструмент починається із задачі: визначаємо ситуацію → створюємо рішення → перевіряємо результат. Його можна пройти окремо або зібрати у систему.":"Every tool starts with a task: define the situation → create a solution → measure the result. Use it alone or as part of a system."}</p><div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">{TOOLSET.map((t,i)=>{const Icon=t.icon;const name=lang==="ua"?t.ua:t.en;return <button key={t.id} onClick={()=>setSelected(name)} className="tool-card panel p-5 min-h-[175px] flex flex-col items-center text-center gap-3 reveal group" style={{animationDelay:`${i*.035}s`}}><div className="tool-card-icon w-12 h-12 rounded-full flex items-center justify-center"><Icon size={21}/></div><span className="font-label text-[11px] tracking-wide text-dim leading-tight">{name}</span><div className="tool-meta">{t.meta.map(m=><span key={m}>{m}</span>)}</div><ArrowUpRight size={13} className="tool-card-arrow mt-auto"/></button>})}</div></div>{selected&&<ToolModal tool={selected} lang={lang} onClose={()=>setSelected(null)}/>}</section>}
