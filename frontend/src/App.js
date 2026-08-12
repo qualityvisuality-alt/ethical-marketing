@@ -10,10 +10,11 @@ import ElementModal from "./components/ElementModal";
 import StagesAccordion from "./components/StagesAccordion";
 import Tools from "./components/Tools";
 import Courses from "./components/Courses";
+import WaterConsultationQuestions from "./components/WaterConsultationQuestions";
 import AboutHelp from "./components/AboutHelp";
 import { ambient } from "./lib/audio";
 
-const BUILD_MARKER="QV UX · 2026-08-12 · R2";
+const BUILD_MARKER="QV UX · 2026-08-12 · R3";
 
 function Starfield(){
   const ref=useRef(null);
@@ -63,6 +64,7 @@ export default function App(){
       <StagesAccordion stages={STAGES[lang]} title={ui.stagesTitle}/>
       <Tools title={ui.toolsTitle} lang={lang}/>
       <Courses lang={lang}/>
+      <WaterConsultationQuestions lang={lang}/>
       <EthicalPrinciples lang={lang}/>
       <AboutHelp about={ABOUT[lang]} help={HELP[lang]} ui={ui} email={CONTACT_EMAIL}/>
     </main>
