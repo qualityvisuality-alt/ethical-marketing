@@ -1,0 +1,3 @@
+Quality Visuality ethical UX audit revision
+2026-08-12
+Clarity navigator, bilingual experience, ethical principles, mobile navigation, offer hierarchy, audio routing fixes.
