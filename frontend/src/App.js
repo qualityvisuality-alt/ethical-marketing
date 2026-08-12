@@ -13,6 +13,8 @@ import Courses from "./components/Courses";
 import AboutHelp from "./components/AboutHelp";
 import { ambient } from "./lib/audio";
 
+const BUILD_MARKER="QV UX · 2026-08-12 · R2";
+
 function Starfield(){
   const ref=useRef(null);
   useEffect(()=>{
@@ -64,7 +66,7 @@ export default function App(){
       <EthicalPrinciples lang={lang}/>
       <AboutHelp about={ABOUT[lang]} help={HELP[lang]} ui={ui} email={CONTACT_EMAIL}/>
     </main>
-    <footer className="relative py-10 px-5 mt-4" style={{borderTop:"1px solid rgba(230,198,122,.16)"}}><div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">{ui.footer.map((f,i)=><React.Fragment key={i}><span className="font-label tracking-[.14em] text-dim text-[12px] md:text-[13px]">{f}</span>{i<ui.footer.length-1&&<span className="diamond hidden md:block"/>}</React.Fragment>)}</div><div className="text-center mt-6 font-body text-[11px] text-dim opacity-60">© {new Date().getFullYear()} Quality Visuality · {CONTACT_EMAIL}</div></footer>
+    <footer className="relative py-10 px-5 mt-4" style={{borderTop:"1px solid rgba(230,198,122,.16)"}}><div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">{ui.footer.map((f,i)=><React.Fragment key={i}><span className="font-label tracking-[.14em] text-dim text-[12px] md:text-[13px]">{f}</span>{i<ui.footer.length-1&&<span className="diamond hidden md:block"/>}</React.Fragment>)}</div><div className="text-center mt-6 font-body text-[11px] text-dim opacity-60">© {new Date().getFullYear()} Quality Visuality · {CONTACT_EMAIL}</div><div data-build-marker className="text-center mt-2 font-label text-[9px] tracking-[.16em]" style={{color:"#6f6a5f",opacity:.7}}>{BUILD_MARKER}</div></footer>
     {selected&&<ElementModal element={selected} ui={ui} onClose={()=>setSelected(null)}/>} 
   </div>
 }
