@@ -2,6 +2,7 @@ import React from "react";
 import { Camera, Eye, PenTool, Layers3, Compass, ArrowUpRight, Mail, Sparkles } from "lucide-react";
 import ElementPortals from "./ElementPortals";
 import "./QualityVisualityEnhancements.css";
+import "./ProductArt.css";
 
 const PRODUCTS=[
  {id:"content",icon:PenTool,tag:"ІНСТРУМЕНТ · КОНТЕНТ",title:"Контент без шуму",desc:"Створення контенту починається із задачі бізнесу: визначаємо ситуацію → створюємо рішення → перевіряємо результат.",blocks:["визначення задачі бізнесу","контент-архітектура та формати","сценарії, тексти й візуал"],arch:"Сенс → повідомлення → увага → дія",print:"lines",color:"#c9a85d"},
