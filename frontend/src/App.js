@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
+import "./components/RevisionR4.css";
 import { Globe2, Volume2, Menu, X } from "lucide-react";
 import { UI, STAGES, ABOUT, HELP, CONTACT_EMAIL } from "./mock";
 import SolarSystemHero from "./components/SolarSystemHero";
@@ -14,7 +15,7 @@ import WaterConsultationQuestions from "./components/WaterConsultationQuestions"
 import AboutHelp from "./components/AboutHelp";
 import { ambient } from "./lib/audio";
 
-const BUILD_MARKER="QV UX · 2026-08-12 · R3";
+const BUILD_MARKER="QV UX · 2026-08-13 · R4";
 
 function Starfield(){
   const ref=useRef(null);
@@ -59,7 +60,7 @@ export default function App(){
     </header>
     <main>
       <SolarSystemHero lang={lang} onOpen={setSelected}/>
-      <DaoSense lang={lang}/>
+      <DaoSense lang={lang} onOpen={setSelected}/>
       <ClarityNavigator lang={lang}/>
       <StagesAccordion stages={STAGES[lang]} title={ui.stagesTitle}/>
       <Tools title={ui.toolsTitle} lang={lang}/>
