@@ -15,7 +15,7 @@ import WaterConsultationQuestions from "./components/WaterConsultationQuestions"
 import AboutHelp from "./components/AboutHelp";
 import { ambient } from "./lib/audio";
 
-const BUILD_MARKER="QV UX · 2026-08-13 · R4";
+const BUILD_MARKER="QV UX · 2026-08-14 · R5 · 8S CINEMA + SCROLL TEA";
 
 function Starfield(){
   const ref=useRef(null);
