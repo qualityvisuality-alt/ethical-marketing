@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowDown, ArrowRight, BookOpen, Compass, MessageCircle, Pause, Play, RotateCcw, Sparkles, Volume2, VolumeX, X } from "lucide-react";
-import { ambient } from "../lib/audio";
+import { ArrowDown, Pause, Play, RotateCcw } from "lucide-react";
 import "./QualityVisualityEnhancements.css";
 import "./ExperienceUX.css";
 import "./ScrollCinematics.css";
 
-const CINEMATIC_DURATION = 8_000;
+const CINEMATIC_DURATION = 6_000;
 const ELEMENT_SOUND = { Вода: "water", Дерево: "wood", Вогонь: "fire", Земля: "earth", Метал: "metal" };
 const ELEMENT_META = {
   Вода: { chakra: "Вішуддха", frequency: "741 Hz", tone: "голос · сенс · глибина" },
@@ -69,37 +68,31 @@ function BrandMark({ compact = false }) {
 
 function CinematicJourney({ progress, playing, lang, onReplay, onToggle }) {
   const flyby = PLANETS.slice(1);
-  const flyRatio = clamp((progress - 0.14) / 0.67);
+  const flyRatio = clamp((progress - 0.16) / 0.64);
   const rawIndex = Math.min(flyby.length - 1, Math.floor(flyRatio * flyby.length));
-  const planet = progress >= 0.14 && progress < 0.82 ? flyby[rawIndex] : null;
+  const planet = progress >= 0.16 && progress < 0.8 ? flyby[rawIndex] : null;
   const segment = planet ? flyRatio * flyby.length - rawIndex : 0;
   const opacity = planet ? Math.sin(segment * Math.PI) : 0;
   const scale = 0.35 + Math.sin(segment * Math.PI) * 3.1;
   const isUa = lang === "ua";
-  const intro = progress < 0.14;
-  const finale = progress >= 0.82;
-  const hidden = progress >= 0.96;
-  return <div className={`solar-cinema ${progress >= 0.9 ? "is-revealing" : ""}`} aria-label={isUa ? "Восьмисекундна анімаційна подорож Сонячною системою" : "Eight-second animated Solar System journey"} aria-hidden={hidden} inert={hidden ? "" : undefined}>
+  const intro = progress < 0.16;
+  const finale = progress >= 0.8;
+  return <div className="solar-cinema" aria-label={isUa ? "Шестисекундна кінематографічна подорож від темряви до світла" : "Six-second cinematic journey from darkness to light"}>
     <div className="cinema-galaxy" style={{ "--galaxy-scale": 0.36 + progress * 3.8, "--galaxy-opacity": Math.max(0, 1 - progress * 1.45) }} aria-hidden="true" />
     <div className="cinema-tunnel" style={{ "--cinema-progress": progress }} aria-hidden="true">{Array.from({ length: 24 }, (_, index) => <i key={index} style={{ "--i": index }} />)}</div>
     {planet && <div className="cinema-flyby" style={{ opacity, transform: `translate3d(${38 - segment * 76}vw, ${8 - Math.sin(segment * Math.PI) * 13}vh,0) translate(-50%,-50%) scale(${scale}) rotate(${segment * 18 - 8}deg)`, "--fly-color": planet.color }} aria-hidden="true"><img src={planet.image} alt="" />{planet.rings && <span className="cinema-rings" />}</div>}
-    <div className={`cinema-caption ${finale ? "is-finale" : ""}`}>{finale && <BrandMark compact />}<span>{intro ? "00 · MILKY WAY" : finale ? "10 · QUALITY VISUALITY" : `${String(rawIndex + 1).padStart(2, "0")} · ${planet?.lens}`}</span><strong>{intro ? (isUa ? "Крізь галактику — до системи" : "Through the galaxy — into the system") : finale ? (isUa ? "Одна система. Багато сил. Один напрям." : "One system. Many forces. One direction.") : (isUa ? planet?.name : planet?.en)}</strong><p>{intro ? (isUa ? "8 секунд від масштабу космосу до архетипу бренду" : "8 seconds from cosmic scale to brand archetype") : finale ? (isUa ? "Тепер обери планету й досліди її прояв" : "Now choose a planet and explore its expression") : (isUa ? planet?.archetype : planet?.enArchetype)}</p></div>
-    <div className="cinema-timeline" aria-label={isUa ? "Прогрес 8-секундного відео" : "8-second video progress"}><span style={{ width: `${progress * 100}%` }} /><b>{Math.min(8, Math.ceil(progress * 8))} / 8 SEC</b></div>
+    <div className={`cinema-caption ${finale ? "is-finale" : ""}`}>{finale && <BrandMark compact />}<span>{intro ? "00 · DARKNESS" : finale ? "QUALITY VISUALITY" : `${String(rawIndex + 1).padStart(2, "0")} · DEEP SPACE`}</span><strong>{intro ? (isUa ? "З тиші народжується напрям" : "Direction emerges from silence") : finale ? (isUa ? "Менше шуму. Більше ясності." : "Less noise. More clarity.") : (isUa ? planet?.name : planet?.en)}</strong><p>{intro ? (isUa ? "Чорний екран → зорі → галактика → світло" : "Black → stars → galaxy → light") : finale ? (isUa ? "Етичний маркетинг для людей, які створюють цінність людям" : "Ethical marketing for people who create value for people") : (isUa ? planet?.archetype : planet?.enArchetype)}</p></div>
+    <div className="cinema-timeline" aria-label={isUa ? "Прогрес 6-секундного вступу" : "6-second intro progress"}><span style={{ width: `${progress * 100}%` }} /><b>{Math.min(6, Math.ceil(progress * 6))} / 6 SEC</b></div>
     <div className="cinema-controls"><button type="button" onClick={onToggle} aria-label={playing ? (isUa ? "Призупинити анімацію" : "Pause animation") : (isUa ? "Продовжити анімацію" : "Continue animation")}>{playing ? <Pause size={14} /> : <Play size={14} />}<span>{playing ? (isUa ? "ПАУЗА" : "PAUSE") : (isUa ? "ПРОДОВЖИТИ" : "CONTINUE")}</span></button><button type="button" onClick={onReplay} aria-label={isUa ? "Відтворити анімацію спочатку" : "Replay animation from the start"}><RotateCcw size={14} /><span>{isUa ? "З ПОЧАТКУ" : "REPLAY"}</span></button></div>
   </div>;
 }
 
-export default function SolarSystemHero({ lang = "ua", onOpen }) {
-  const [angle, setAngle] = useState(0);
-  const [active, setActive] = useState(null);
-  const [selected, setSelected] = useState(null);
-  const [soundOn, setSoundOn] = useState(false);
+export default function SolarSystemHero({ lang = "ua", onIntroProgress }) {
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [runId, setRunId] = useState(0);
-  const [orbitActive, setOrbitActive] = useState(false);
   const heroRef = useRef(null);
-  const hoverRef = useRef(false);
+  const scrubReadyRef = useRef(false);
 
   useEffect(() => {
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) { setProgress(1); setPlaying(false); return undefined; }
@@ -111,42 +104,34 @@ export default function SolarSystemHero({ lang = "ua", onOpen }) {
     return () => cancelAnimationFrame(raf);
   }, [playing, runId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    const node = heroRef.current;
-    if (!node) return undefined;
-    const observer = new IntersectionObserver(([entry]) => setOrbitActive(entry.isIntersecting), { rootMargin: "120px" });
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+  useEffect(() => { onIntroProgress?.(progress); }, [progress, onIntroProgress]);
 
   useEffect(() => {
-    if (!orbitActive || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return undefined;
-    let last = performance.now(), raf;
-    const tick = now => { if (now - last >= 32) { const delta = Math.min(now - last, 50); last = now; setAngle(value => value + delta * (hoverRef.current ? 0.000004 : 0.000032)); } raf = requestAnimationFrame(tick); };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [orbitActive]);
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return undefined;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const node = heroRef.current;
+      if (!node || (!scrubReadyRef.current && progress < .99)) return;
+      const rect = node.getBoundingClientRect();
+      const travel = Math.max(node.offsetHeight - window.innerHeight, 1);
+      const scrollProgress = clamp(-rect.top / travel);
+      if (scrollProgress > .72) scrubReadyRef.current = true;
+      if (scrubReadyRef.current) setProgress(scrollProgress);
+    };
+    const requestUpdate = () => { if (!raf) raf = requestAnimationFrame(update); };
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    return () => { if (raf) cancelAnimationFrame(raf); window.removeEventListener("scroll", requestUpdate); window.removeEventListener("resize", requestUpdate); };
+  }, [progress]);
 
-  const isUa = lang === "ua", title = isUa ? "ЕТИЧНИЙ МАРКЕТИНГ" : "ETHICAL MARKETING", sub = isUa ? "для людей, які створюють цінність людям" : "for people who create value for people";
-  const modal = planet => ({ ...planet, sound: ELEMENT_SOUND[planet.element] || "brand", kicker: planet.lens, essence: isUa ? planet.archetype : planet.enArchetype, points: [isUa ? planet.archetype : planet.enArchetype, isUa ? `Прояв у бренді: ${planet.role}` : `Brand expression: ${planet.enRole}`], valueTitle: isUa ? "АРХЕТИП" : "ARCHETYPE", value: DETAILS[planet.id][lang], deliver: OFFERS[planet.id], cases: [CASES[planet.id]], offers: OFFERS[planet.id] });
-  const select = planet => { setSelected(planet); setActive(planet); if (soundOn) ambient.play(ELEMENT_SOUND[planet.element] || "brand"); };
-  const toggleSound = event => { event.stopPropagation(); const next = !soundOn; setSoundOn(next); ambient.toggle(next); if (next) ambient.play("brand"); };
-  const replay = () => { setProgress(0); setPlaying(true); setRunId(value => value + 1); if (soundOn) ambient.play("brand"); };
-  const reveal = clamp((progress - 0.86) / 0.1);
-  const stageStyle = { "--map-reveal": reveal, "--map-blur": `${(1 - reveal) * 8}px` };
-
-  return <section ref={heroRef} id="solar" className={`solar-hero solar-video-hero ${progress < 0.96 ? "cinema-active" : "cinema-complete"}`}>
-    <div className="solar-title"><BrandMark /><h1>{title}</h1><p>{sub}</p><div className="hero-cta-row"><a className="hero-cta primary" href="#clarity"><Compass size={13} />{isUa ? "ЗНАЙТИ СВІЙ КРОК" : "FIND YOUR NEXT STEP"}</a><a className="hero-cta secondary" href="#dao">{isUa ? "ДОСЛІДИТИ СИСТЕМУ" : "EXPLORE THE SYSTEM"}<ArrowDown size={12} /></a></div></div>
-    <div className="solar-experience"><CinematicJourney progress={progress} playing={playing} lang={lang} onReplay={replay} onToggle={() => setPlaying(value => !value)} /><div className="solar-stage solar-map-stage" style={stageStyle} aria-hidden={progress < 0.96} inert={progress < 0.96 ? "" : undefined} onMouseEnter={() => { hoverRef.current = true; }} onMouseLeave={() => { hoverRef.current = false; setActive(selected); }}>
-      <div className="solar-nebula nebula-a" /><div className="solar-nebula nebula-b" />{[1,2,3,4,5,6,7,8,9].map(orbit => <div key={orbit} className={`solar-orbit solar-orbit-${orbit}`} />)}
-      <button type="button" className="sun-core" onClick={() => select(PLANETS[0])} aria-label={isUa ? "Відкрити Сонце" : "Open Sun"}><span className="sun-flare" /><img src={PLANETS[0].image} alt={isUa ? "Сонце" : "Sun"} /><span className="sun-copy">{isUa ? <>ЕТИЧНИЙ<br />МАРКЕТИНГ</> : <>ETHICAL<br />MARKETING</>}</span></button>
-      <div className="solar-rotator">{PLANETS.slice(1).map(planet => { const theta = (planet.orbit - 1) * (Math.PI * 2 / 9) - Math.PI / 2, radius = 55 + planet.orbit * 5.15, rotation = angle * planet.speed, x = 50 + (radius / 2) * Math.cos(theta + rotation), y = 50 + (radius / 2) * Math.sin(theta + rotation); return <button type="button" key={planet.id} className={`planet-node ${active?.id === planet.id ? "planet-active" : ""}`} style={{ left: `${x}%`, top: `${y}%`, transform: "translate(-50%,-50%)", "--planet-glow": planet.color }} onClick={event => { event.stopPropagation(); select(planet); }} onMouseEnter={() => setActive(planet)}><span className="planet-img-wrap"><img src={planet.image} alt={isUa ? planet.name : planet.en} />{planet.rings && <i className="planet-rings" />}<i className="planet-glass" /></span><span className="planet-label"><b>{isUa ? planet.name : planet.en}</b><small>{isUa ? planet.archetype : planet.enArchetype}</small></span></button>; })}</div>
-      <div className="solar-instruction">{isUa ? "Натисни на планету — спершу архетип, потім його прояв у бренді" : "Click a planet — archetype first, then brand expression"}</div>
-    </div></div>
-    <div className="vedic-system-note solar-vedic-note"><BookOpen size={13} /><span>{isUa ? "Класична Navagraha — лише там, де планета до неї належить. Земля подана як Pṛthivī; Уран, Нептун і Плутон — сучасне символічне розширення." : "Classical Navagraha where applicable; Earth is Pṛthivī; Uranus, Neptune and Pluto are modern extensions."}</span></div>
-    <a href="#dao" className="solar-next"><span>{isUa ? "ГОРТАЙ ДАЛІ" : "SCROLL DOWN"}</span><ArrowDown size={18} /></a><button type="button" className="solar-sound-toggle" onClick={toggleSound}>{soundOn ? <Volume2 size={15} /> : <VolumeX size={15} />}<span>{soundOn ? "ЗВУК ON" : "ЗВУК OFF"}</span></button>
-    {selected && <div id="planet-meaning" className="planet-quick planet-quick-expanded" style={{ "--planet-glow": selected.color }}><button type="button" className="planet-quick-close" aria-label={isUa ? "Закрити" : "Close"} onClick={() => { setSelected(null); setActive(null); ambient.stop(); }}><X size={15} /></button><div className="planet-quick-main"><span className="font-label">{selected.lens}</span><strong>{isUa ? selected.name : selected.en} · {isUa ? selected.archetype : selected.enArchetype}</strong><p>{DETAILS[selected.id][lang]}</p><div className="planet-vedic-meta"><BookOpen size={13} /><span>{isUa ? `Прояв у бренді: ${selected.role}` : `Brand expression: ${selected.enRole}`}</span></div><div className="planet-case"><Sparkles size={13} /><span>{CASES[selected.id]}</span></div></div><div className="planet-quick-actions"><button type="button" className="planet-open-label" onClick={() => onOpen?.(modal(selected))}>{isUa ? "ДОСЛІДИТИ АРХЕТИП" : "EXPLORE ARCHETYPE"}<ArrowRight size={14} /></button><a className="planet-message" href="#contact"><MessageCircle size={14} />{isUa ? "НАПИСАТИ МЕНІ" : "MESSAGE ME"}</a></div></div>}
+  const replay = () => { scrubReadyRef.current = false; setProgress(0); setPlaying(true); setRunId(value => value + 1); };
+  return <section ref={heroRef} id="solar" className="cinematic-intro-section">
+    <div className="cinematic-intro-sticky">
+      <CinematicJourney progress={progress} playing={playing} lang={lang} onReplay={replay} onToggle={() => setPlaying(value => !value)} />
+      <a href="#dao" className={`intro-next ${progress>.94?"is-visible":""}`}><span>{lang==="ua"?"LESS IS MORE":"LESS IS MORE"}</span><ArrowDown size={18}/></a>
+    </div>
   </section>;
 }
 
-export { PLANETS, DETAILS, ELEMENT_META, OFFERS, CASES };
+export { BrandMark, PLANETS, DETAILS, ELEMENT_META, OFFERS, CASES };
