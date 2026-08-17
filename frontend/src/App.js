@@ -3,7 +3,7 @@ import "./App.css";
 import "./components/RevisionR4.css";
 import { Globe2, Volume2, Menu, X } from "lucide-react";
 import { UI, STAGES, ABOUT, HELP, CONTACT_EMAIL } from "./mock";
-import SolarSystemHero from "./components/SolarSystemHero";
+import SolarSystemHero, { BrandMark } from "./components/SolarSystemHero";
 import DaoSense from "./components/DaoSense";
 import ClarityNavigator from "./components/ClarityNavigator";
 import EthicalPrinciples from "./components/EthicalPrinciples";
@@ -33,6 +33,7 @@ export default function App(){
   const [lang,setLang]=useState("ua");
   const [selected,setSelected]=useState(null);
   const [menuOpen,setMenuOpen]=useState(false);
+  const [introComplete,setIntroComplete]=useState(false);
   const ui=UI[lang];
   useEffect(()=>{const els=document.querySelectorAll(".reveal");const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});els.forEach(el=>io.observe(el));return()=>io.disconnect()},[lang]);
   const playBrand=()=>ambient.play("brand");
@@ -48,7 +49,7 @@ export default function App(){
   return <div className="App"><div className="cosmic-bg"/><Starfield/>
     <header className="sticky top-0 z-40" style={{background:"rgba(5,7,15,.68)",backdropFilter:"blur(14px)",borderBottom:"1px solid rgba(230,198,122,.14)"}}>
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-        <a href="#solar" className="font-display gold-gradient-text" style={{fontSize:20,fontWeight:800}} onClick={()=>setMenuOpen(false)}>Quality Visuality</a>
+        <a href="#solar" className={`nav-brand ${introComplete?"is-visible":""}`} onClick={()=>setMenuOpen(false)}><BrandMark /></a>
         <nav className="hidden md:flex items-center gap-5">{nav.slice(0,6).map(([id,label])=><a key={id} href={`#${id}`} className="font-label text-[12px] tracking-widest text-dim hover:text-gold transition-colors">{label}</a>)}</nav>
         <div className="flex items-center gap-2">
           <button onClick={playBrand} className="btn-ghost w-9 h-9 flex items-center justify-center rounded-full" title={lang==="ua"?"Звук простору":"Ambient sound"}><Volume2 size={15}/></button>
@@ -59,7 +60,7 @@ export default function App(){
       {menuOpen&&<nav className="mobile-drawer md:hidden">{nav.map(([id,label])=><a key={id} href={`#${id}`} onClick={()=>setMenuOpen(false)}>{label}</a>)}</nav>}
     </header>
     <main>
-      <SolarSystemHero lang={lang} onOpen={setSelected}/>
+      <SolarSystemHero lang={lang} onIntroProgress={value=>setIntroComplete(value>=.94)}/>
       <DaoSense lang={lang} onOpen={setSelected}/>
       <ClarityNavigator lang={lang}/>
       <StagesAccordion stages={STAGES[lang]} title={ui.stagesTitle}/>
