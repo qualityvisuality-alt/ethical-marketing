@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowDown, Volume2, VolumeX } from "lucide-react";
-import teaScene from "../assets/tea-scroll-scene.webp";
+import teaScene from "../assets/tea-scroll-scene-v2.webp";
 import { ambient } from "../lib/audio";
 import "./ScrollCinematics.css";
 
@@ -46,10 +46,10 @@ export default function TeaScrollScene({ lang = "ua" }) {
   }, [progress, soundOn]);
 
   const sceneStyle = useMemo(() => {
-    const fill = clamp((progress - 0.28) / 0.4);
-    const streamIn = clamp((progress - 0.22) / 0.12);
-    const streamOut = 1 - clamp((progress - 0.7) / 0.1);
-    const textChange = clamp((progress - 0.74) / 0.12);
+    const fill = clamp((progress - 0.18) / 0.3);
+    const streamIn = clamp((progress - 0.12) / 0.08);
+    const streamOut = 1 - clamp((progress - 0.54) / 0.08);
+    const textChange = clamp((progress - 0.58) / 0.1);
     return {
       "--tea-progress": progress,
       "--tea-zoom": 1.025 + progress * 0.018,
