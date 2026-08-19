@@ -3,8 +3,6 @@ import "./App.css";
 import "./components/RevisionR4.css";
 import { Globe2, Volume2, Menu, X } from "lucide-react";
 import { UI, STAGES, ABOUT, HELP, CONTACT_EMAIL } from "./mock";
-import SensoryMonkeyHero from "./components/SensoryMonkeyHero";
-import SolarSystemHero from "./components/SolarSystemHero";
 import DaoSense from "./components/DaoSense";
 import ClarityNavigator from "./components/ClarityNavigator";
 import EthicalPrinciples from "./components/EthicalPrinciples";
@@ -16,7 +14,7 @@ import WaterConsultationQuestions from "./components/WaterConsultationQuestions"
 import AboutHelp from "./components/AboutHelp";
 import { ambient } from "./lib/audio";
 
-const BUILD_MARKER="QV UX · 2026-08-19 · R6 · FIVE SENSES / ONE HEART";
+const BUILD_MARKER="QV UX · 2026-08-19 · R6 · CLEAN HERO";
 
 function Starfield(){
   const ref=useRef(null);
@@ -38,8 +36,6 @@ export default function App(){
   useEffect(()=>{const els=document.querySelectorAll(".reveal");const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});els.forEach(el=>io.observe(el));return()=>io.disconnect()},[lang]);
   const playBrand=()=>ambient.play("brand");
   const nav=[
-    ["senses",lang==="ua"?"5 відчуттів":"5 senses"],
-    ["solar",lang==="ua"?"Система":"System"],
     ["dao","LESS IS MORE"],
     ["clarity",lang==="ua"?"З чого почати":"Start here"],
     ["stages",lang==="ua"?"Маршрут":"Route"],
@@ -50,8 +46,8 @@ export default function App(){
   return <div className="App"><div className="cosmic-bg"/><Starfield/>
     <header className="sticky top-0 z-40" style={{background:"rgba(5,7,15,.68)",backdropFilter:"blur(14px)",borderBottom:"1px solid rgba(230,198,122,.14)"}}>
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-        <a href="#senses" className="font-display gold-gradient-text" style={{fontSize:20,fontWeight:800}} onClick={()=>setMenuOpen(false)}>Quality Visuality</a>
-        <nav className="hidden md:flex items-center gap-5">{nav.slice(0,6).map(([id,label])=><a key={id} href={`#${id}`} className="font-label text-[12px] tracking-widest text-dim hover:text-gold transition-colors">{label}</a>)}</nav>
+        <a href="#dao" className="font-display gold-gradient-text" style={{fontSize:20,fontWeight:800}} onClick={()=>setMenuOpen(false)}>Quality Visuality</a>
+        <nav className="hidden md:flex items-center gap-5">{nav.map(([id,label])=><a key={id} href={`#${id}`} className="font-label text-[12px] tracking-widest text-dim hover:text-gold transition-colors">{label}</a>)}</nav>
         <div className="flex items-center gap-2">
           <button onClick={playBrand} className="btn-ghost w-9 h-9 flex items-center justify-center rounded-full" title={lang==="ua"?"Звук простору":"Ambient sound"}><Volume2 size={15}/></button>
           <button onClick={()=>setLang(lang==="ua"?"en":"ua")} className="btn-ghost px-3 py-1.5 flex items-center gap-2 text-sm font-label" aria-label="Change language"><Globe2 size={15}/>{lang==="ua"?"EN":"UA"}</button>
@@ -61,8 +57,6 @@ export default function App(){
       {menuOpen&&<nav className="mobile-drawer md:hidden">{nav.map(([id,label])=><a key={id} href={`#${id}`} onClick={()=>setMenuOpen(false)}>{label}</a>)}</nav>}
     </header>
     <main>
-      <div id="senses"><SensoryMonkeyHero/></div>
-      <SolarSystemHero lang={lang} onOpen={setSelected}/>
       <DaoSense lang={lang} onOpen={setSelected}/>
       <ClarityNavigator lang={lang}/>
       <StagesAccordion stages={STAGES[lang]} title={ui.stagesTitle}/>
