@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 import "./components/RevisionR4.css";
+import "./components/RevisionR7.css";
 import { Globe2, Volume2, Menu, X } from "lucide-react";
 import { UI, STAGES, ABOUT, HELP, CONTACT_EMAIL } from "./mock";
 import DaoSense from "./components/DaoSense";
