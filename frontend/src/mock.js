@@ -20,7 +20,7 @@ export const ELEMENTS = {
       obraz: "глибина, тиша, коріння", image: IMG.water,
       points: ["Ідентичність бренду", "Цінності, місія", "Сенс продукту", "Історія та автентичність", "Внутрішнє бачення"],
       valueTitle: "Що ти отримуєш",
-      value: "На першій зустрічі за чашкою китайського чаю ми занурюємось у тебе. Ти дізнаєшся, хто ти у всьому цьому, свій Human Design та ролі, які найкраще реалізуєш у своєму бренді й продукті. Побачиш, як саме твій продукт впливає на людей, знайдеш свою «Північну зірку» і почнеш бачити, як рухатись з найвищим ККД — так, щоб було найкраще саме для тебе.",
+      value: "На першій зустрічі за чашкою китайського чаю ми занурюємось у твою ситуацію. Ти ясніше бачиш себе у всьому цьому, свій Human Design та ролі, які природно реалізуєш у бренді й продукті. Побачиш, як саме твій продукт впливає на людей, знайдеш свою «Північну зірку» і почнеш рухатися у спосіб, що відповідає твоїй енергії, практиці та обставинам.",
       deliver: ["Розбір Human Design та ролей", "Карта цінностей і місії", "Tone of voice і суть продукту", "Ясність «хто ти, куди йдеш»"],
     },
     {
@@ -67,7 +67,7 @@ export const ELEMENTS = {
       obraz: "depth, silence, roots", image: IMG.water,
       points: ["Brand identity", "Values, mission", "Product meaning", "Story & authenticity", "Inner vision"],
       valueTitle: "What you get",
-      value: "At our first session over a cup of Chinese tea we dive into you. You discover who you are within all of this, your Human Design and the roles you realize best in your brand and product. You see how your product truly affects people, find your North Star, and start to move with the highest efficiency — the way that is best for you.",
+      value: "At our first session over a cup of Chinese tea we explore your situation. You see yourself more clearly within it, your Human Design and the roles you naturally embody in your brand and product. You see how your product affects people, find your North Star and begin moving in a way that fits your energy, practice and circumstances.",
       deliver: ["Human Design & roles breakdown", "Values & mission map", "Tone of voice & product essence", "Clarity: who you are, where you go"],
     },
     {
