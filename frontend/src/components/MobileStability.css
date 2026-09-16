@@ -1,0 +1,58 @@
+/* R10 · mobile/browser stability layer. Additive only: preserves the visual system. */
+html,body,#root,.App{max-width:100%;min-height:100%;}
+html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+*{box-sizing:border-box;}
+img,video,canvas,svg{max-width:100%;}
+.App main,.App section,.App header,.App footer{min-width:0;}
+
+/* Safari/iOS: avoid old 100vh behaviour and allow safe-area breathing room. */
+@supports (height:100dvh){
+  .mobile-drawer{max-height:calc(100dvh - 4rem);overflow-y:auto;}
+  .seasonal-popup{max-height:calc(100dvh - 24px);}
+}
+
+.stage-tools-depth{margin-top:18px;padding-top:16px;border-top:1px solid rgba(230,198,122,.12);}
+.stage-tools-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:12px;}
+.stage-tools-head strong{display:block;font-size:12px;letter-spacing:.11em;text-transform:uppercase;}
+.stage-tools-head span{display:block;margin-top:4px;font-size:12px;line-height:1.5;color:#9c998f;}
+.stage-tools-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+.stage-tool-card{width:100%;min-width:0;text-align:left;padding:12px 13px;border-radius:12px;background:rgba(3,7,14,.42);border:1px solid rgba(230,198,122,.14);transition:border-color .2s ease,transform .2s ease,background .2s ease;}
+.stage-tool-card:hover,.stage-tool-card:focus-visible{transform:translateY(-1px);background:rgba(255,255,255,.025);outline:none;}
+.stage-tool-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.stage-tool-card strong{font-family:var(--font-label,inherit);font-size:11px;line-height:1.4;color:#ebe4d2;letter-spacing:.02em;}
+.stage-tool-card small{display:block;margin-top:6px;color:#8f8d86;font-size:11px;line-height:1.45;}
+.stage-tools-more{border:0;background:none;padding:7px 0;margin-top:10px;cursor:pointer;font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+
+.dao-path-note{max-width:820px;margin:18px auto 0;padding:16px 18px;border:1px solid rgba(230,198,122,.18);border-radius:16px;background:linear-gradient(110deg,rgba(230,198,122,.055),rgba(11,17,31,.22));}
+.dao-path-note strong{display:block;margin-bottom:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#e6c67a;}
+.dao-path-note p{margin:0;color:#b8b3a6;font-size:13px;line-height:1.65;}
+
+@media (max-width:767px){
+  /* Lighter first paint on iOS Safari/Android Chrome. */
+  .cosmic-bg{background-attachment:scroll!important;}
+  header[style]{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(5,7,15,.92)!important;}
+  .stage-tools-grid{grid-template-columns:1fr;}
+  .stage-tools-head{align-items:flex-start;flex-direction:column;gap:5px;}
+  .stage-summary{min-width:0;}
+  .stage-summary-copy{min-width:0;}
+  .stage-output{flex:0 0 auto;}
+  .seasonal-popup{width:min(94vw,560px)!important;left:50%!important;right:auto!important;transform:translateX(-50%);overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:max(18px,env(safe-area-inset-bottom));}
+  .seasonal-photo{max-height:32dvh;object-fit:cover;}
+  .dao-path-note{margin-top:14px;padding:14px;}
+  h1,h2,.font-display{overflow-wrap:anywhere;}
+}
+
+@media (max-width:520px){
+  .stage-summary{gap:10px!important;padding:14px 12px!important;}
+  .stage-icon{width:38px!important;height:38px!important;flex:0 0 38px!important;}
+  .stage-number{font-size:23px!important;}
+  .stage-output{font-size:9px!important;padding:5px 8px!important;}
+  .stage-detail{padding-left:12px!important;padding-right:12px!important;}
+}
+
+/* Accessibility + battery: retain hierarchy without forcing motion. */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important;}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
+  .starfield{display:none!important;}
+}
