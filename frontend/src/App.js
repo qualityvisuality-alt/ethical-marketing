@@ -27,7 +27,7 @@ const copy = {
     natureTitle: "Nature — Golden Wetlands",
     natureBody: "Одна серия, один свет, один берег. Жёлто-золотые кадры собраны вместе и показаны в исходной последовательности.",
     foodTitle: "Food & Still Life",
-    foodBody: "Серия с Cherrydeck будет добавляться здесь отдельным проектом без смешивания с портретами и пейзажами.",
+    foodBody: "Отдельный проект для фуд-съёмки — без смешивания с портретами, улицей и пейзажами.",
     videoTitle: "Moving Image",
     contact: "Связаться",
   },
@@ -48,12 +48,12 @@ const copy = {
     natureTitle: "Nature — Golden Wetlands",
     natureBody: "Одна серія, одне світло, один берег. Жовто-золоті кадри зібрані разом і показані у вихідній послідовності.",
     foodTitle: "Food & Still Life",
-    foodBody: "Серія з Cherrydeck буде додаватися тут окремим проєктом без змішування з портретами та пейзажами.",
+    foodBody: "Окремий проєкт для фуд-зйомки — без змішування з портретами, вулицею та пейзажами.",
     videoTitle: "Moving Image",
     contact: "Зв’язатися",
   },
   pl: {
-    name: "Aleksandr Popovych",
+    name: "Aleksandr Popowicz",
     lead: "Badam emocje i potrzeby w naturalnej atmosferze za pomocą obiektywu.",
     text1: "Lubię fotografię uliczną za jej bezstronny stosunek do tego, co dzieje się na ulicy i wewnątrz człowieka.",
     text2: "To portfolio powstawało w różnych okresach mojego życia — kiedy miałem przy sobie aparat i kiedy go nie miałem. Te zdjęcia nie są wzorem, tylko sposobem dzielenia się moim widzeniem świata.",
@@ -69,12 +69,12 @@ const copy = {
     natureTitle: "Nature — Golden Wetlands",
     natureBody: "Jedna seria, jedno światło, jeden brzeg. Żółto-złote kadry są pokazane razem, w oryginalnym rytmie.",
     foodTitle: "Food & Still Life",
-    foodBody: "Seria z Cherrydeck będzie umieszczona tutaj jako osobny projekt, bez mieszania jej z portretami i krajobrazami.",
+    foodBody: "Osobny projekt fotografii kulinarnej — bez mieszania go z portretami, ulicą i krajobrazem.",
     videoTitle: "Moving Image",
     contact: "Kontakt",
   },
   en: {
-    name: "Aleksandr Popovych",
+    name: "Oleksandr Popovych",
     lead: "I explore emotions and needs in a natural atmosphere through the lens.",
     text1: "I love street photography for its unbiased relationship with what happens in the street and inside a person.",
     text2: "This portfolio was gathered across different periods of my life — when I had a camera with me and when I did not. These photographs are not a standard to follow, only a way to share how I see the world.",
@@ -90,7 +90,7 @@ const copy = {
     natureTitle: "Nature — Golden Wetlands",
     natureBody: "One series, one light, one shoreline. The yellow-gold frames are kept together and shown in their original rhythm.",
     foodTitle: "Food & Still Life",
-    foodBody: "The Cherrydeck food series is reserved here as its own project, separate from portraits and landscapes.",
+    foodBody: "A separate project for food photography — kept apart from portraits, street work and landscapes.",
     videoTitle: "Moving Image",
     contact: "Contact",
   },
@@ -103,7 +103,7 @@ function getPhotos(ids) {
 function Photo({ item, featured = false }) {
   const [src, setSrc] = useState(enhancedSource(item.src));
   return (
-    <figure className={`still ${featured ? "featured" : ""} ${item.ratio || ""}`}>
+    <figure className={`still ${item.kind || ""} ${featured ? "priority" : ""} ${item.ratio || ""}`}>
       <img
         src={src}
         alt={item.alt}
@@ -234,7 +234,7 @@ export default function App() {
       </Section>
 
       <Section id="food" eyebrow="05 / PROJECT" title={t.foodTitle} body={<p>{t.foodBody}</p>}>
-        <div className="food-reserved" aria-label="Food project placeholder"><span>FOOD & STILL LIFE</span><span>CHERRYDECK SERIES</span></div>
+        <div className="food-reserved" aria-label="Food project"><span>FOOD & STILL LIFE</span><span>CHERRYDECK SERIES</span></div>
       </Section>
 
       <section id="video" className="video-section">
