@@ -1,32 +1,128 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import "./App.css";
 import { enhancedSource, photos, videos } from "./portfolioData";
 
-const featuredIds = [10, 3, 7, 15, 8, 11, 16, 14, 13, 42, 47, 4];
-const storyOne = [21, 22, 23, 24, 25, 26, 28, 38, 39, 40];
-const storyTwo = [17, 18, 19, 27, 29, 30, 31, 32, 33, 34, 35, 36, 43];
-const archiveIds = [1, 2, 5, 6, 37, 41, 44, 45, 46];
+const groups = {
+  people: [2,3,5,6,7,8,9,10,11,12,13,14,15,16,21,22,23,24,25,26,28,35,36,38,39,40,41,43,47],
+  travel: [1,4,17,18,19,27,42],
+  conceptual: [20,37,44,45,46],
+  nature: [29,30,31,32,33,34],
+};
+
+const copy = {
+  ru: {
+    name: "Александр Попович",
+    lead: "Исследую эмоции и потребности в природной атмосфере с помощью объектива.",
+    text1: "Люблю уличную фотографию за её непредвзятое отношение к тому, что происходит на улице и внутри человека.",
+    text2: "Это портфолио собрано в разные периоды моей жизни — когда я был с камерой и когда был без неё. Эти фотографии не образец, а просто способ поделиться моим видением мира.",
+    people: "Люди и портреты",
+    travel: "Путешествия и пейзаж",
+    conceptual: "Концептуальное и продакшн",
+    nature: "Природа",
+    food: "Фуд-съёмка",
+    video: "Видео",
+    peopleTitle: "Urban Bodies",
+    travelTitle: "Travel & Landscape",
+    conceptualTitle: "Conceptual & Production",
+    natureTitle: "Nature — Golden Wetlands",
+    natureBody: "Одна серия, один свет, один берег. Жёлто-золотые кадры собраны вместе и показаны в исходной последовательности.",
+    foodTitle: "Food & Still Life",
+    foodBody: "Серия с Cherrydeck будет добавляться здесь отдельным проектом без смешивания с портретами и пейзажами.",
+    videoTitle: "Moving Image",
+    contact: "Связаться",
+  },
+  ua: {
+    name: "Олександр Попович",
+    lead: "Досліджую емоції та потреби в природній атмосфері за допомогою об’єктива.",
+    text1: "Люблю вуличну фотографію за її неупереджене ставлення до того, що відбувається на вулиці й усередині людини.",
+    text2: "Це портфоліо зібране в різні періоди мого життя — коли я був із камерою і коли був без неї. Ці фотографії не взірець, а просто спосіб поділитися моїм баченням світу.",
+    people: "Люди й портрети",
+    travel: "Подорожі й пейзаж",
+    conceptual: "Концептуальне й продакшн",
+    nature: "Природа",
+    food: "Фуд-зйомка",
+    video: "Відео",
+    peopleTitle: "Urban Bodies",
+    travelTitle: "Travel & Landscape",
+    conceptualTitle: "Conceptual & Production",
+    natureTitle: "Nature — Golden Wetlands",
+    natureBody: "Одна серія, одне світло, один берег. Жовто-золоті кадри зібрані разом і показані у вихідній послідовності.",
+    foodTitle: "Food & Still Life",
+    foodBody: "Серія з Cherrydeck буде додаватися тут окремим проєктом без змішування з портретами та пейзажами.",
+    videoTitle: "Moving Image",
+    contact: "Зв’язатися",
+  },
+  pl: {
+    name: "Aleksandr Popovych",
+    lead: "Badam emocje i potrzeby w naturalnej atmosferze za pomocą obiektywu.",
+    text1: "Lubię fotografię uliczną za jej bezstronny stosunek do tego, co dzieje się na ulicy i wewnątrz człowieka.",
+    text2: "To portfolio powstawało w różnych okresach mojego życia — kiedy miałem przy sobie aparat i kiedy go nie miałem. Te zdjęcia nie są wzorem, tylko sposobem dzielenia się moim widzeniem świata.",
+    people: "Ludzie i portrety",
+    travel: "Podróże i krajobraz",
+    conceptual: "Koncept i produkcja",
+    nature: "Natura",
+    food: "Fotografia jedzenia",
+    video: "Wideo",
+    peopleTitle: "Urban Bodies",
+    travelTitle: "Travel & Landscape",
+    conceptualTitle: "Conceptual & Production",
+    natureTitle: "Nature — Golden Wetlands",
+    natureBody: "Jedna seria, jedno światło, jeden brzeg. Żółto-złote kadry są pokazane razem, w oryginalnym rytmie.",
+    foodTitle: "Food & Still Life",
+    foodBody: "Seria z Cherrydeck będzie umieszczona tutaj jako osobny projekt, bez mieszania jej z portretami i krajobrazami.",
+    videoTitle: "Moving Image",
+    contact: "Kontakt",
+  },
+  en: {
+    name: "Aleksandr Popovych",
+    lead: "I explore emotions and needs in a natural atmosphere through the lens.",
+    text1: "I love street photography for its unbiased relationship with what happens in the street and inside a person.",
+    text2: "This portfolio was gathered across different periods of my life — when I had a camera with me and when I did not. These photographs are not a standard to follow, only a way to share how I see the world.",
+    people: "People & Lifestyle",
+    travel: "Travel & Landscape",
+    conceptual: "Conceptual & Production",
+    nature: "Nature",
+    food: "Food & Still Life",
+    video: "Video",
+    peopleTitle: "Urban Bodies",
+    travelTitle: "Travel & Landscape",
+    conceptualTitle: "Conceptual & Production",
+    natureTitle: "Nature — Golden Wetlands",
+    natureBody: "One series, one light, one shoreline. The yellow-gold frames are kept together and shown in their original rhythm.",
+    foodTitle: "Food & Still Life",
+    foodBody: "The Cherrydeck food series is reserved here as its own project, separate from portraits and landscapes.",
+    videoTitle: "Moving Image",
+    contact: "Contact",
+  },
+};
 
 function getPhotos(ids) {
   return ids.map((id) => photos.find((p) => p.id === id)).filter(Boolean);
 }
 
-function Photo({ item, className = "", eager = false }) {
+function Photo({ item, featured = false }) {
   const [src, setSrc] = useState(enhancedSource(item.src));
-  const original = item.src;
-
   return (
-    <figure className={`photo ${item.ratio || ""} ${className}`}>
+    <figure className={`still ${featured ? "featured" : ""} ${item.ratio || ""}`}>
       <img
         src={src}
         alt={item.alt}
-        loading={eager ? "eager" : "lazy"}
+        loading={featured ? "eager" : "lazy"}
         decoding="async"
-        onError={() => {
-          if (src !== original) setSrc(original);
-        }}
+        draggable="false"
+        onError={() => setSrc(item.src)}
       />
     </figure>
+  );
+}
+
+function Gallery({ items, className = "" }) {
+  return (
+    <div className={`gallery ${className}`}>
+      {items.map((item, index) => (
+        <Photo key={item.id} item={item} featured={index < 2 && item.kind === "featured"} />
+      ))}
+    </div>
   );
 }
 
@@ -34,7 +130,6 @@ function VideoCard({ video, index }) {
   const frameRef = useRef(null);
   const [mounted, setMounted] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(false);
   const [poster, setPoster] = useState(`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`);
 
   const send = (func) => {
@@ -50,14 +145,8 @@ function VideoCard({ video, index }) {
       window.setTimeout(() => send("playVideo"), 650);
       return;
     }
-    if (playing) send("pauseVideo");
-    else send("playVideo");
-    setPlaying((v) => !v);
-  };
-
-  const toggleMute = () => {
-    send(muted ? "unMute" : "mute");
-    setMuted((v) => !v);
+    send(playing ? "pauseVideo" : "playVideo");
+    setPlaying((value) => !value);
   };
 
   const src = useMemo(() => {
@@ -68,219 +157,96 @@ function VideoCard({ video, index }) {
   return (
     <article className="video-card">
       <div className="video-stage">
-        {!mounted && (
-          <img
-            className="video-poster"
-            src={poster}
-            alt=""
-            aria-hidden="true"
-            onError={() => setPoster(`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`)}
-          />
-        )}
-        {mounted && (
-          <iframe
-            ref={frameRef}
-            className="video-frame"
-            src={src}
-            title={video.title}
-            allow="autoplay; encrypted-media; picture-in-picture"
-            referrerPolicy="strict-origin-when-cross-origin"
-            loading="lazy"
-            tabIndex="-1"
-          />
-        )}
-        <div className="video-shade" aria-hidden="true" />
-        <button className="video-play" onClick={togglePlay} aria-label={playing ? "Pause video" : "Play video"}>
-          <span>{playing ? "Ⅱ" : "▶"}</span>
-        </button>
-        {mounted && (
-          <button className="video-mute" onClick={toggleMute} aria-label={muted ? "Unmute video" : "Mute video"}>
-            {muted ? "MUTED" : "SOUND"}
-          </button>
-        )}
-        <span className="video-index">0{index + 1}</span>
+        {!mounted && <img src={poster} alt="" aria-hidden="true" onError={() => setPoster(`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`)} />}
+        {mounted && <iframe ref={frameRef} src={src} title={video.title} allow="autoplay; encrypted-media; picture-in-picture" tabIndex="-1" />}
+        <button onClick={togglePlay} aria-label={playing ? "Pause video" : "Play video"}>{playing ? "Ⅱ" : "▶"}</button>
+        <span>0{index + 1}</span>
       </div>
-      <div className="video-meta">
-        <h3>{video.title}</h3>
-        <p>{video.meta}</p>
-      </div>
+      <div className="video-meta"><h3>{video.title}</h3><p>{video.meta}</p></div>
     </article>
   );
 }
 
-function SectionTitle({ index, kicker, title, body }) {
+function Section({ id, eyebrow, title, children, body, pale = false }) {
   return (
-    <div className="section-title">
-      <span className="section-index">{index}</span>
-      <div>
-        <p className="kicker">{kicker}</p>
+    <section id={id} className={`series ${pale ? "pale" : ""}`}>
+      <div className="series-head">
+        <p>{eyebrow}</p>
         <h2>{title}</h2>
-        {body && <p className="section-copy">{body}</p>}
+        {body && <div className="series-copy">{body}</div>}
       </div>
-    </div>
+      {children}
+    </section>
   );
 }
 
 export default function App() {
-  const [lightbox, setLightbox] = useState(null);
-  const featured = getPhotos(featuredIds);
-  const people = getPhotos(storyOne);
-  const places = getPhotos(storyTwo);
-  const archive = getPhotos(archiveIds);
-
-  useEffect(() => {
-    const onKey = (event) => {
-      if (event.key === "Escape") setLightbox(null);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  const [lang, setLang] = useState("ru");
+  const t = copy[lang];
+  const people = getPhotos(groups.people);
+  const travel = getPhotos(groups.travel);
+  const conceptual = getPhotos(groups.conceptual);
+  const nature = getPhotos(groups.nature);
 
   return (
     <main className="portfolio-site" id="top">
       <header className="topbar">
-        <a className="wordmark" href="#top" aria-label="Back to top">OH</a>
-        <nav aria-label="Portfolio navigation">
-          <a href="#photo">PHOTO</a>
-          <a href="#video">VIDEO</a>
-          <a href="#about">ABOUT</a>
-        </nav>
-        <a className="contact-link" href="mailto:qualityvisuality@gmail.com">CONTACT</a>
+        <a href="#top" className="mark">AP</a>
+        <nav><a href="#people">PHOTO</a><a href="#video">VIDEO</a></nav>
+        <div className="languages" aria-label="Language switcher">
+          {["en","ru","ua","pl"].map((code) => <button className={lang === code ? "active" : ""} key={code} onClick={() => setLang(code)}>{code.toUpperCase()}</button>)}
+        </div>
       </header>
 
-      <section className="hero">
-        <div className="hero-copy">
-          <p className="eyebrow">VISUAL PORTFOLIO · PHOTO / VIDEO / CONTENT</p>
-          <h1>Oleksandr<br />Hulevych</h1>
-          <div className="hero-bottom-copy">
-            <p>Observation, atmosphere and human presence — from quiet landscape to staged production.</p>
-            <a href="#photo">VIEW SELECTED WORK <span>↓</span></a>
-          </div>
-        </div>
-
-        <div className="hero-grid" aria-label="Selected photography">
-          {[featured[0], featured[1], featured[2], featured[3]].map((item, i) => (
-            <button key={item.id} className={`hero-tile tile-${i + 1}`} onClick={() => setLightbox(item)} aria-label={`Open photo: ${item.alt}`}>
-              <Photo item={item} eager />
-            </button>
-          ))}
-          <div className="hero-stamp">SELECTED<br />WORK</div>
+      <section className="hero-text">
+        <p className="hero-kicker">PHOTO · VIDEO · OBSERVATION</p>
+        <h1>{t.name}</h1>
+        <div className="manifesto">
+          <p className="manifesto-lead">{t.lead}</p>
+          <p>{t.text1}</p>
+          <p>{t.text2}</p>
         </div>
       </section>
 
-      <section className="intro-line" aria-label="Portfolio summary">
-        <span>PEOPLE & LIFESTYLE</span>
-        <span>TRAVEL & LANDSCAPE</span>
-        <span>CONCEPTUAL & PRODUCTION</span>
-        <span>VIDEO</span>
-      </section>
+      <nav className="category-strip" aria-label="Portfolio sections">
+        <a href="#people">{t.people}</a>
+        <a href="#travel">{t.travel}</a>
+        <a href="#conceptual">{t.conceptual}</a>
+        <a href="#nature">{t.nature}</a>
+        <a href="#food">{t.food}</a>
+        <a href="#video">{t.video}</a>
+      </nav>
 
-      <section className="work-section" id="photo">
-        <SectionTitle
-          index="01"
-          kicker="SELECTED PHOTOGRAPHY"
-          title="Light, movement, people."
-          body="A curated sequence from the available archive. Stronger source files are shown large; older low-resolution frames are kept in compact sets instead of being stretched beyond their texture."
-        />
+      <Section id="people" eyebrow="01 / PEOPLE" title={t.peopleTitle}>
+        <Gallery items={people} className="people-gallery" />
+      </Section>
 
-        <div className="featured-masonry">
-          {featured.slice(4).map((item, index) => (
-            <button key={item.id} className={`masonry-item m-${index + 1}`} onClick={() => setLightbox(item)} aria-label={`Open photo: ${item.alt}`}>
-              <Photo item={item} />
-            </button>
-          ))}
-        </div>
-      </section>
+      <Section id="travel" eyebrow="02 / TRAVEL" title={t.travelTitle} pale>
+        <Gallery items={travel} className="travel-gallery" />
+      </Section>
 
-      <section className="story-section">
-        <div className="story-head">
-          <span>STORY / 01</span>
-          <h2>Urban bodies</h2>
-          <p>Editorial frames built around gesture, architecture and distance.</p>
-        </div>
-        <div className="story-grid people-grid">
-          {people.map((item, index) => (
-            <button key={item.id} className={`story-item story-${index + 1}`} onClick={() => setLightbox(item)} aria-label={`Open photo: ${item.alt}`}>
-              <Photo item={item} />
-            </button>
-          ))}
-        </div>
-      </section>
+      <Section id="conceptual" eyebrow="03 / CONCEPT" title={t.conceptualTitle}>
+        <Gallery items={conceptual} className="concept-gallery" />
+      </Section>
 
-      <section className="story-section pale">
-        <div className="story-head dark-text">
-          <span>STORY / 02</span>
-          <h2>Roads & stillness</h2>
-          <p>Landscape, forest and city fragments — less spectacle, more attention.</p>
-        </div>
-        <div className="story-grid places-grid">
-          {places.map((item, index) => (
-            <button key={item.id} className={`story-item place-${index + 1}`} onClick={() => setLightbox(item)} aria-label={`Open photo: ${item.alt}`}>
-              <Photo item={item} />
-            </button>
-          ))}
-        </div>
-      </section>
+      <Section id="nature" eyebrow="04 / PROJECT" title={t.natureTitle} body={<p>{t.natureBody}</p>} pale>
+        <Gallery items={nature} className="nature-gallery" />
+      </Section>
 
-      <section className="archive-section">
-        <SectionTitle
-          index="02"
-          kicker="EARLY / LOW-RES ARCHIVE"
-          title="Contact sheets, not fake pixels."
-          body="These frames come from small Cherrydeck / Instagram derivatives. I keep them as four-up studies so they remain visually honest and still work as part of the portfolio rhythm."
-        />
-        <div className="contact-sheets">
-          {[archive.slice(0, 4), archive.slice(4, 8), archive.slice(8)].map((group, gi) => (
-            <div className={`contact-sheet ${group.length === 1 ? "single" : ""}`} key={gi}>
-              {group.map((item) => (
-                <button key={item.id} onClick={() => setLightbox(item)} aria-label={`Open photo: ${item.alt}`}>
-                  <Photo item={item} />
-                </button>
-              ))}
-            </div>
-          ))}
-        </div>
-      </section>
+      <Section id="food" eyebrow="05 / PROJECT" title={t.foodTitle} body={<p>{t.foodBody}</p>}>
+        <div className="food-reserved" aria-label="Food project placeholder"><span>FOOD & STILL LIFE</span><span>CHERRYDECK SERIES</span></div>
+      </Section>
 
-      <section className="video-section" id="video">
-        <SectionTitle
-          index="03"
-          kicker="MOVING IMAGE"
-          title="Five pieces. One page."
-          body="The videos play inside the portfolio through a custom player layer. The embedded YouTube frame does not accept pointer input, so clicking the image cannot send the viewer away to YouTube."
-        />
-        <div className="video-list">
-          {videos.map((video, index) => <VideoCard key={video.id} video={video} index={index} />)}
-        </div>
-      </section>
-
-      <section className="about-section" id="about">
-        <div className="about-label">ABOUT</div>
-        <div className="about-copy">
-          <h2>I work where image, attention and communication meet.</h2>
-          <p>I studied cinema and TV camera work and developed through photography, video and real-world service work. Now I’m building that visual background into content and community work for mission-driven projects — without inventing clients, numbers or a louder identity than the work itself.</p>
-          <div className="about-tags">
-            <span>Photography</span><span>Video</span><span>Short-form content</span><span>Community support</span><span>Ethical communication</span>
-          </div>
-        </div>
-        <div className="about-cta">
-          <p>Available for selected collaborations and junior content / community roles.</p>
-          <a href="mailto:qualityvisuality@gmail.com">qualityvisuality@gmail.com ↗</a>
-        </div>
+      <section id="video" className="video-section">
+        <div className="series-head"><p>06 / VIDEO</p><h2>{t.videoTitle}</h2></div>
+        <div className="video-list">{videos.map((video, index) => <VideoCard key={video.id} video={video} index={index} />)}</div>
       </section>
 
       <footer>
-        <span>OLEKSANDR HULEVYCH</span>
-        <span>PHOTO · VIDEO · CONTENT</span>
-        <a href="#top">BACK TO TOP ↑</a>
+        <span>{t.name}</span>
+        <a href="mailto:qualityvisuality@gmail.com">{t.contact} ↗</a>
+        <a href="#top">↑ TOP</a>
       </footer>
-
-      {lightbox && (
-        <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" onClick={() => setLightbox(null)}>
-          <button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="Close photo">CLOSE ×</button>
-          <img src={enhancedSource(lightbox.src)} alt={lightbox.alt} onError={(event) => { event.currentTarget.src = lightbox.src; }} />
-        </div>
-      )}
     </main>
   );
 }
