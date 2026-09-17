@@ -1,0 +1,60 @@
+.portfolio-site .gallery,
+.portfolio-site .people-gallery,
+.portfolio-site .travel-gallery,
+.portfolio-site .concept-gallery,
+.portfolio-site .nature-gallery {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  align-items: start !important;
+}
+
+.portfolio-site .gallery .still,
+.portfolio-site .people-gallery .still,
+.portfolio-site .travel-gallery .still,
+.portfolio-site .concept-gallery .still,
+.portfolio-site .nature-gallery .still {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  aspect-ratio: auto !important;
+  overflow: visible !important;
+  cursor: default !important;
+  pointer-events: none !important;
+  transform: none !important;
+}
+
+.portfolio-site .gallery .still img,
+.portfolio-site .people-gallery .still img,
+.portfolio-site .travel-gallery .still img,
+.portfolio-site .concept-gallery .still img,
+.portfolio-site .nature-gallery .still img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  cursor: default !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+}
+
+.portfolio-site .gallery .featured,
+.portfolio-site .gallery .portrait,
+.portfolio-site .gallery .landscape,
+.portfolio-site .gallery .square {
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
+
+@media (max-width: 820px) {
+  .portfolio-site .gallery,
+  .portfolio-site .people-gallery,
+  .portfolio-site .travel-gallery,
+  .portfolio-site .concept-gallery,
+  .portfolio-site .nature-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+  }
+}
