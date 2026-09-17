@@ -1,0 +1,1 @@
+Portfolio preview branch uses a fixed three-column, non-clickable photo grid.
